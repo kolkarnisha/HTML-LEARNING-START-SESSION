@@ -1,5 +1,8 @@
 from pathlib import Path
+
 DATA_FILE = Path(__file__).resolve().parent / "nisha.txt"
+
+
 def read_students():
     students = []
     if not DATA_FILE.exists():
@@ -13,6 +16,8 @@ def read_students():
             if len(parts) == 3:
                 students.append(parts)
     return students
+
+
 def add_student():
     name = input("Enter student name: ").strip()
     course = input("Enter course: ").strip()
@@ -20,6 +25,8 @@ def add_student():
     with DATA_FILE.open("a", encoding="utf-8") as f:
         f.write(f"{name},{course},{cgpa}\n")
     print("Student added.")
+
+
 def view_students():
     students = read_students()
     if not students:
@@ -27,6 +34,8 @@ def view_students():
         return
     for name, course, cgpa in students:
         print("Name:", name, "Course:", course, "CGPA:", cgpa)
+
+
 def search_student():
     search_name = input("Enter student name: ").strip().lower()
     if not search_name:
@@ -45,6 +54,8 @@ def search_student():
         print("Name:", name)
         print("Course:", course)
         print("CGPA:", cgpa)
+
+
 def update_student():
     students = read_students()
     if not students:
@@ -71,6 +82,8 @@ def update_student():
         print("Student updated successfully.")
     else:
         print("Student not found.")
+
+
 def delete_student():
     students = read_students()
     if not students:
@@ -85,6 +98,8 @@ def delete_student():
             for s in new_students:
                 f.write(",".join(s) + "\n")
         print("Student deleted successfully.")
+
+
 def show_statistics():
     students = read_students()
     if not students:
@@ -101,6 +116,8 @@ def show_statistics():
 
 def count_students():
     print("Total students:", len(read_students()))
+
+
 while True:
     print("\n1 Add student")
     print("2 View students")
@@ -127,8 +144,7 @@ while True:
         show_statistics()
     elif choice == "8":
         print("Bye.")
-
-
         break
     else:
         print("Invalid choice.")
+
