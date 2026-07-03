@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ALGONEX Management System</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #53c710; }
+    form { margin-bottom: 20px; }
+    label { display: block; margin-top: 1px; }
+    input, button { padding: 8px; margin-top: 15px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 29px; }
+    th, td { border: 1px solid #117cc4; padding: 8px; text-align: left; }
+    th { background-color: #dd10c2; }
+    .actions button { margin-right: 15px; }
+  </style>
+</head>
+<body>
+  <h1>ALGONEX Management System</h1>
+
+  <!-- Add Student Form -->
+  <form id="addStudentForm">
+    <h2>Add Student</h2>
+    <label>Name: <input type="text" name="names" required></label>
+    <label>Course: <input type="text" name="courses" required></label>
+    <label>CGPA: <input type="text" name="cgpas" required></label>
+    <button type="submit">Add Student</button>
+  </form>
+
+  <!-- Search Student Form -->
+  <form id="searchStudentForm">
+    <h2>Search Student</h2>
+    <label>Enter Name: <input type="text" name="searchNames" required></label>
+    <button type="submited">Search</button>
+  </form>
+
+  <!-- Student List -->
+  <h2>View Students</h2>
+  <table id="studentsTable">
+    <thead>
+      <tr>
+        <th>Names</th>
+        <th>Courses</th>
+        <th>CGPAs</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Student rows will be dynamically inserted here -->
+    </tbody>
+  </table>
+
+  <!-- Statistics -->
+  <h2>Statistics</h2>
+  <p id="stats">No data yet.</p>
+
+  <script>
+    let students = [];
+
+    function renderStudents(list = students) {
+      const tbody = document.querySelector("#studentsTable tbody");
+      tbody.innerHTML = "";
+      list.forEach((s, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${s.name}</td>
+          <td>${s.course}</td>
+          <td>${s.cgpa}</td>
+          <td class="actions">
+            <button onclick="updateStudent(${index})">Update</button>
+            <button onclick="deleteStudent(${index})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(row);
+      });
+      updateStats();
+    }
+
+    function updateStats() {
+      if (students.length === 0) {
+        document.getElementById("stats").textContent = "No data yet.";
+        return;
+      }
+      const cgpas = students.map(s => parseFloat(s.cgpa)).filter(n => !isNaN(n));
+      if (cgpas.length === 0) {
+        document.getElementById("stats").textContent = "No valid CGPA data.";
+        return;
+      }
+      const avg = (cgpas.reduce((a, b) => a + b, 0) / cgpas.length).toFixed(2);
+      const max = Math.max(...cgpas);
+      const min = Math.min(...cgpas);
+      document.getElementById("stats").textContent =
+        `Average CGPA: ${avg}, Highest: ${max}, Lowest: ${min}`;
+    }
+
+    document.getElementById("addStudentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = this.name.value.trim();
+      const course = this.course.value.trim();
+      const cgpa = this.cgpa.value.trim();
+      students.push({ name, course, cgpa });
+      renderStudents();
+      this.reset();
+    });
+
+    document.getElementById("searchStudentForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const searchName = this.searchName.value.trim().toLowerCase();
+      const results = students.filter(s => s.name.toLowerCase().includes(searchName));
+      if (results.length === 0) {
+        alert("Student not found.");
+      } else {
+        renderStudents(results);
+      }
+    });
+
+    function updateStudent(index) {
+      const student = students[index];
+      const newCourse = prompt("Enter new course:", student.course);
+      const newCgpa = prompt("Enter new CGPA:", student.cgpa);
+      if (newCourse) student.course = newCourse;
+      if (newCgpa) student.cgpa = newCgpa;
+      renderStudents();
+    }
+
+    function deleteStudent(index) {
+      if (confirm("Are you sure you want to delete this student?")) {
