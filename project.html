@@ -1,0 +1,974 @@
+Skip to content
+aavulachithra7-ops
+marathahallli_pg_finder
+Repository navigation
+Code
+Issues
+Pull requests
+Agents
+Actions
+Projects
+Security and quality
+Insights
+Commit 4724341
+aavulachithra7-ops
+aavulachithra7-ops
+committed
+yesterday
+Initial commit: pg_snap website project
+master
+0 parents  commit 
+4724341
+43 files changed
+
++8,080
+Lines changed: 8080 additions & 0 deletions
+File tree
+Filter files…
+.env.example
+.gitignore
+.oxlintrc.json
+README.md
+index.html
+package-lock.json
+package.json
+public
+favicon.svg
+icons.svg
+replace_colors.ps1
+src
+App.css
+App.jsx
+assets
+hero.png
+react.svg
+vite.svg
+components
+Amenities.jsx
+BookingForm.jsx
+Filters.jsx
+FloorAvailability.jsx
+Footer.jsx
+Hero.jsx
+Navbar.jsx
+PGCard.jsx
+ReviewCard.jsx
+RoomCard.jsx
+SearchBar.jsx
+SharingRentCards.jsx
+WeeklyMenu.jsx
+context
+BookingContext.jsx
+data
+pgData.js
+rooms.js
+weeklyMenu.js
+index.css
+lib
+api.js
+firebase.js
+supabase.js
+main.jsx
+pages
+About.jsx
+Home.jsx
+Login.jsx
+PGDetails.jsx
+supabase_schema.sql
+vite.config.js
+Some content is hidden
+Large Commits have some content hidden by default. Use the searchbox below for content that may be hidden.
+Search within code
+ 
+‎src/main.jsx‎
++10
+Lines changed: 10 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,10 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+‎src/pages/About.jsx‎
++197
+Lines changed: 197 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,197 @@
+export default function About({ onNavigate }) {
+  const team = [
+    { name: 'Harshitha', role: 'CEO & Founder', avatar: 'H', emoji: '👩‍💼' },
+    { name: 'Chitra', role: 'Head of Design', avatar: 'C', emoji: '👩‍🎨' },
+    { name: 'Aneesha', role: 'Lead Engineer', avatar: 'A', emoji: '👩‍💻' },
+    { name: 'Prathibha', role: 'Product Manager', avatar: 'P', emoji: '👩‍💼' },
+    { name: 'Nisha', role: 'Operations Manager', avatar: 'N', emoji: '👩‍🔧' },
+    { name: 'Shaistha', role: 'Marketing Lead', avatar: 'S', emoji: '👩‍🏫' },
+    { name: 'Bhuvana', role: 'Customer Success', avatar: 'B', emoji: '👩‍💻' },
+  ];
+  const milestones = [
+    { year: '2021', event: 'PGFinder founded in Marathahalli' },
+    { year: '2022', event: 'Reached 100+ verified PG listings' },
+    { year: '2023', event: '10,000 tenants successfully placed' },
+    { year: '2024', event: 'Launched real-time floor availability feature' },
+  ];
+  return (
+    <div className="about-page">
+      <div className="container">
+        {/* Hero */}
+        <div className="about-hero">
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 20px',
+            borderRadius: '30px',
+            background: 'rgba(249,115,22,0.15)',
+            border: '1px solid rgba(249,115,22,0.3)',
+            color: '#7c2d12',
+            fontSize: '13px',
+            fontWeight: 600,
+            marginBottom: '28px',
+          }}>
+            🏆 Trusted by 12,000+ Tenants
+          </div>
+          <h1 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 800, marginBottom: '20px' }}>
+            We're on a Mission to Make <span className="gradient-text">PG Hunting Effortless</span>
+          </h1>
+          <p style={{ fontSize: '18px', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 40px', lineHeight: '1.7' }}>
+            PGFinder was born from the frustration of finding a good PG in Marathahalli.
+            We're building the platform we wish had existed when we were looking.
+          </p>
+          <button className="btn btn-primary" onClick={() => onNavigate('home')} id="explore-pgs-btn" style={{ fontSize: '15px', padding: '14px 32px' }}>
+            🏠 Explore PGs →
+          </button>
+        </div>
+        {/* Stats */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+          gap: '20px',
+          marginBottom: '80px',
+        }}>
+          {[
+            { num: '500+', label: 'Verified PGs', icon: '🏠' },
+            { num: '12K+', label: 'Happy Tenants', icon: '😊' },
+            { num: '4.8⭐', label: 'Avg Rating', icon: '⭐' },
+            { num: '₹0', label: 'Brokerage', icon: '💸' },
+            { num: '24/7', label: 'Support', icon: '🛡️' },
+          ].map((s, i) => (
+            <div key={i} className="about-stat-card">
+              <div style={{ fontSize: '28px', marginBottom: '8px' }}>{s.icon}</div>
+              <div className="about-stat-num">{s.num}</div>
+              <div className="about-stat-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        {/* Mission */}
+        <div className="about-mission">
+          <div className="about-mission-grid">
+            <div className="about-mission-text">
+              <h2>Why We Built <span className="gradient-text">PGFinder</span></h2>
+              <p>
+                Finding a PG in Marathahalli used to mean endless calls, broker fees, and unreliable information.
+                We experienced this firsthand when relocating for work — and decided to fix it.
+              </p>
+              <p>
+                PGFinder gives tenants real-time floor-wise availability, honest noise ratings, verified amenity lists,
+                and zero brokerage — everything you need to make a confident decision.
+              </p>
+              <p>
+                For PG owners, we offer a powerful platform to reach thousands of qualified tenants and manage
+                listings with ease.
+              </p>
+              <button
+                className="btn btn-primary"
+                style={{ marginTop: '16px' }}
+                onClick={() => onNavigate('login')}
+                id="list-pg-btn"
+              >
+                🔑 List Your PG Free
+              </button>
+            </div>
+            {/* Timeline */}
+            <div>
+              <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '20px', fontWeight: 700, marginBottom: '24px', color: 'var(--text-secondary)' }}>
+                Our Journey
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                {milestones.map((m, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: i < milestones.length - 1 ? '24px' : '0', position: 'relative' }}>
+                    {i < milestones.length - 1 && (
+                      <div style={{ position: 'absolute', left: '19px', top: '40px', width: '2px', height: 'calc(100% - 16px)', background: 'var(--border)' }} />
+                    )}
+                    <div style={{
+                      width: '40px', height: '40px', borderRadius: '50%',
+                      background: 'var(--gradient-1)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '13px', fontWeight: 800, color: 'white',
+                      flexShrink: 0, zIndex: 1,
+                      boxShadow: '0 4px 16px rgba(249,115,22,0.3)',
+                    }}>
+                      {m.year.slice(2)}
+                    </div>
+                    <div style={{ paddingTop: '8px' }}>
+                      <div style={{ fontSize: '12px', color: 'var(--accent)', fontWeight: 700, marginBottom: '4px' }}>{m.year}</div>
+                      <div style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>{m.event}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* Team */}
+        <div className="team-section">
+          <h2>Meet the <span className="gradient-text">Team</span></h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '48px' }}>
+            The passionate people building the future of PG discovery
+          </p>
+          <div className="team-grid">
+            {team.map((member, i) => (
+              <div key={i} className="team-card" id={`team-${member.avatar.toLowerCase()}`}>
+                <div className="team-avatar">{member.avatar}</div>
+                <div className="team-name">{member.name}</div>
+                <div className="team-role">{member.role}</div>
+                <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  {['🐦', '💼'].map((icon, j) => (
+                    <div key={j} style={{
+                      width: '30px', height: '30px', borderRadius: '8px',
+                      background: 'var(--bg-glass)', border: '1px solid var(--border)',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '14px', cursor: 'pointer', transition: 'all 0.2s',
+                    }}>
+                      {icon}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* CTA */}
+        <div style={{
+          margin: '60px 0 80px',
+          padding: '60px 40px',
+          borderRadius: '28px',
+          background: 'linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.08), rgba(251,146,60,0.06))',
+          border: '1px solid rgba(249,115,22,0.25)',
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          <div style={{ position: 'absolute', width: '300px', height: '300px', borderRadius: '50%', background: 'rgba(249,115,22,0.1)', filter: 'blur(60px)', top: '-100px', right: '-50px' }} />
+          <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '36px', fontWeight: 800, marginBottom: '16px', position: 'relative' }}>
+            Ready to Find Your <span className="gradient-text">Dream PG?</span>
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '16px', marginBottom: '32px', position: 'relative' }}>
+            Join thousands of happy tenants who found their perfect PG through PGFinder.
+          </p>
+          <button
+            className="btn btn-primary"
+            style={{ fontSize: '16px', padding: '16px 40px', position: 'relative' }}
+            onClick={() => onNavigate('home')}
+            id="cta-search-btn"
+          >
+            🔍 Start Searching Now →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+‎src/pages/Home.jsx‎
++155
+Lines changed: 155 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,155 @@
+import { useState, useEffect } from 'react';
+import Hero from '../components/Hero';
+import SearchBar from '../components/SearchBar';
+import Filters from '../components/Filters';
+import PGCard from '../components/PGCard';
+import { pgData } from '../data/pgData';
+import { getPGListings } from '../lib/api';
+export default function Home({ onViewDetails }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({ gender: 'All', sort: 'rent-asc', maxRent: 'all' });
+  const [listings, setListings] = useState(pgData); // start with local data
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function fetchListings() {
+      try {
+        const data = await getPGListings();
+        if (data && data.length > 0) {
+          // Normalize Supabase snake_case to camelCase
+          const normalized = data.map(pg => ({
+            id: pg.id,
+            name: pg.name,
+            location: pg.location,
+            gender: pg.gender,
+            rent: pg.rent,
+            rating: pg.rating,
+            distance: pg.distance,
+            amenities: pg.amenities || [],
+            totalFloors: pg.total_floors,
+            floorAvailability: pg.floor_availability || {},
+            image: pg.image,
+            reviews: pg.pg_reviews || [],
+          }));
+          setListings(normalized);
+        }
+        // If empty, keep local pgData
+      } catch {
+        // Supabase not configured yet — use local data silently
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchListings();
+  }, []);
+  const handleSearch = () => {
+    // Already filtered in real-time, this handles button clicks / enter key submits
+  };
+  const filtered = listings
+    .filter(pg => {
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch = !q ||
+        pg.name.toLowerCase().includes(q) ||
+        pg.location.toLowerCase().includes(q) ||
+        (pg.locationDetail && pg.locationDetail.toLowerCase().includes(q)) ||
+        (pg.foodMenu && pg.foodMenu.toLowerCase().includes(q)) ||
+        (pg.amenities && pg.amenities.some(a => a.toLowerCase().includes(q)));
+      const matchesGender = filters.gender === 'All' || pg.gender === filters.gender;
+      const matchesRent = filters.maxRent === 'all' ||
+        (filters.maxRent === '10000-above' ? pg.rent > 10000 : pg.rent <= Number(filters.maxRent));
+      return matchesSearch && matchesGender && matchesRent;
+    })
+    .sort((a, b) => {
+      if (filters.sort === 'rent-asc') return a.rent - b.rent;
+      if (filters.sort === 'rent-desc') return b.rent - a.rent;
+      if (filters.sort === 'rating') return b.rating - a.rating;
+      if (filters.sort === 'distance') return parseFloat(a.distance) - parseFloat(b.distance);
+      return 0;
+    });
+  return (
+    <>
+      <Hero
+        searchComponent={
+          <SearchBar
+            searchQuery={searchQuery}
+            onSearch={setSearchQuery}
+            onSubmit={handleSearch}
+            listings={listings}
+          />
+        }
+      />
+      <section className="main-section">
+        <div className="container">
+          <Filters filters={filters} onFilterChange={setFilters} />
+          <div style={{ marginTop: '40px' }}>
+            <div className="section-header">
+              <h2 className="section-title">
+                🏠 PGs in <span className="gradient-text">Marathahalli</span>
+              </h2>
+              <span className="section-count">{filtered.length} listings found</span>
+            </div>
+            {loading ? (
+              <div style={{ textAlign: 'center', padding: '60px', fontSize: '36px' }}>
+                <div style={{ animation: 'spin 1s linear infinite', display: 'inline-block', marginBottom: '12px' }}>⟳</div>
+                <p style={{ fontSize: '15px', color: 'var(--text-muted)', marginTop: '8px' }}>Loading listings...</p>
+              </div>
+            ) : filtered.length === 0 ? (
+              <div className="no-results">
+                <div style={{ fontSize: '60px', marginBottom: '16px' }}>🔍</div>
+                <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '22px', fontWeight: 700, marginBottom: '10px' }}>
+                  No PGs found
+                </h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '15px' }}>
+                  Try adjusting your filters or search query.
+                </p>
+              </div>
+            ) : (
+              <div className="pg-grid">
+                {filtered.map(pg => (
+                  <PGCard key={pg.id} pg={pg} onViewDetails={onViewDetails} />
+                ))}
+              </div>
+            )}
+          </div>
+          {/* Features Banner */}
+          <div style={{
+            marginTop: '80px',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '20px',
+          }}>
+            {[
+              { icon: '✅', title: 'Verified Listings', desc: 'All PGs are personally verified by our team' },
+              { icon: '⚡', title: 'Real-time Availability', desc: 'Instant floor-wise room availability updates' },
+              { icon: '🍽️', title: 'Weekly Food Menu', desc: 'View daily meal plans before you move in' },
+              { icon: '₹', title: 'Zero Brokerage', desc: 'Find your PG without paying any hidden fees' },
+            ].map((f, i) => (
+              <div key={i} style={{
+                padding: '24px',
+                borderRadius: '16px',
+                background: 'var(--bg-glass)',
+                border: '1px solid var(--border)',
+                textAlign: 'center',
+                transition: 'all 0.3s',
+              }}>
+                <div style={{ fontSize: '36px', marginBottom: '12px' }}>{f.icon}</div>
+                <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '16px', fontWeight: 700, marginBottom: '8px' }}>
+                  {f.title}
+                </div>
+                <div style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: '1.6' }}>{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+‎src/pages/Login.jsx‎
++234
+Lines changed: 234 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,234 @@
+import { useState, useEffect } from 'react';
+import { signIn, signUp, signInWithGoogle, signInWithFacebook, onAuthChange } from '../lib/api';
+export default function Login({ onNavigate, onLogin }) {
+  const [mode, setMode] = useState('login'); // 'login' | 'signup'
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'tenant' });
+  const [loading, setLoading] = useState(false);
+  const [toast, setToast] = useState('');
+  // Listen for OAuth redirects (e.g., Google)
+  useEffect(() => {
+    const { data: { subscription } } = onAuthChange((event, session) => {
+      if ((event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') && session?.user) {
+        const u = session.user;
+        const userData = {
+          id: u.id,
+          email: u.email,
+          name: u.user_metadata?.full_name || u.user_metadata?.name || u.email.split('@')[0],
+          role: u.user_metadata?.role || 'tenant',
+          isGoogle: u.app_metadata?.provider === 'google',
+        };
+        setToast('🎉 Signed in successfully!');
+        if (onLogin) onLogin(userData);
+        setTimeout(() => { setToast(''); onNavigate('home'); }, 1500);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setToast('');
+    try {
+      if (mode === 'signup') {
+        const data = await signUp({ email: form.email, password: form.password, name: form.name, role: form.role });
+        const u = data.user;
+        const userData = { id: u.id, email: u.email, name: form.name, role: form.role };
+        setToast('✅ Account created! Check your email to verify, then sign in.');
+        if (onLogin) onLogin(userData);
+        setTimeout(() => { setToast(''); onNavigate('home'); }, 2500);
+      } else {
+        const data = await signIn({ email: form.email, password: form.password });
+        const u = data.user;
+        const userData = {
+          id: u.id,
+          email: u.email,
+          name: u.user_metadata?.name || form.email.split('@')[0],
+          role: u.user_metadata?.role || 'tenant',
+        };
+        setToast('🎉 Welcome back! Redirecting...');
+        if (onLogin) onLogin(userData);
+        setTimeout(() => { setToast(''); onNavigate('home'); }, 1500);
+      }
+    } catch (err) {
+      setToast(`❌ ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    setToast('🌐 Redirecting to Google...');
+    try {
+      await signInWithGoogle();
+      // Auth state change listener above will handle the redirect
+    } catch (err) {
+      setToast(`❌ ${err.message}`);
+      setLoading(false);
+    }
+  };
+  const handleFacebookLogin = async () => {
+    setLoading(true);
+    setToast('🌐 Redirecting to Facebook...');
+    try {
+      await signInWithFacebook();
+    } catch (err) {
+      setToast(`❌ ${err.message}`);
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="login-page">
+      {/* Background orbs */}
+      <div className="hero-orb" style={{ width: 400, height: 400, background: 'rgba(139,92,246,0.15)', top: -100, right: -100, position: 'absolute', borderRadius: '50%', filter: 'blur(80px)' }} />
+      <div className="hero-orb" style={{ width: 300, height: 300, background: 'rgba(236,72,153,0.1)', bottom: -50, left: -50, position: 'absolute', borderRadius: '50%', filter: 'blur(80px)' }} />
+      <div className="login-card">
+        <div className="login-icon">
+          <div className="login-icon-inner">🏠</div>
+        </div>
+        <h1 className="login-title">
+          {mode === 'login' ? 'Welcome Back' : 'Join PGFinder'}
+        </h1>
+        <p className="login-subtitle">
+          {mode === 'login'
+            ? 'Sign in to access your dashboard and saved PGs'
+            : 'Create an account to find your perfect PG today'}
+        </p>
+        {/* Role Switcher */}
+        <div style={{
+          display: 'flex',
+          background: 'rgba(255,255,255,0.04)',
+          border: '1px solid var(--border)',
+          borderRadius: '12px',
+          padding: '4px',
+          marginBottom: '24px',
+          gap: '4px',
+        }}>
+          {['tenant', 'owner'].map(role => (
+            <button
+              key={role}
+              id={`role-${role}`}
+              onClick={() => setForm({ ...form, role })}
+              style={{
+                flex: 1,
+                padding: '10px',
+                borderRadius: '10px',
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px',
+                fontWeight: 600,
+                transition: 'all 0.2s',
+                background: form.role === role ? 'var(--gradient-1)' : 'transparent',
+                color: form.role === role ? 'white' : 'var(--text-muted)',
+                boxShadow: form.role === role ? '0 4px 12px rgba(139,92,246,0.3)' : 'none',
+              }}
+            >
+              {role === 'tenant' ? '🏠 I\'m a Tenant' : '🔑 I\'m an Owner'}
+            </button>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit}>
+          {mode === 'signup' && (
+            <div className="form-group">
+              <label className="form-label" htmlFor="signup-name">Full Name</label>
+              <input
+                id="signup-name"
+                className="form-input"
+                type="text"
+                placeholder="John Doe"
+                value={form.name}
+                onChange={e => setForm({ ...form, name: e.target.value })}
+                required
+              />
+            </div>
+          )}
+          <div className="form-group">
+            <label className="form-label" htmlFor="login-email">Email Address</label>
+            <input
+              id="login-email"
+              className="form-input"
+              type="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={e => setForm({ ...form, email: e.target.value })}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="login-password">Password</label>
+            <input
+              id="login-password"
+              className="form-input"
+              type="password"
+              placeholder="••••••••"
+              value={form.password}
+              onChange={e => setForm({ ...form, password: e.target.value })}
+              required
+            />
+          </div>
+          {mode === 'login' && (
+            <div style={{ textAlign: 'right', marginTop: '-10px', marginBottom: '20px' }}>
+              <span className="login-link" style={{ fontSize: '13px' }}>Forgot password?</span>
+            </div>
+          )}
+          <button
+            id="auth-submit-btn"
+            type="submit"
+            className="btn btn-primary"
+            style={{ width: '100%', padding: '14px', fontSize: '15px', marginTop: '8px' }}
+            disabled={loading}
+          >
+            {loading ? (
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+                <span style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 0.7s linear infinite', display: 'inline-block' }} />
+                {mode === 'login' ? 'Signing In...' : 'Creating Account...'}
+              </span>
+            ) : (
+              mode === 'login' ? '🚀 Sign In' : '✨ Create Account'
+            )}
+          </button>
+        </form>
+        <div className="login-divider"><span>or continue with</span></div>
+        <div className="social-login">
+          <button className="social-login-btn" onClick={handleGoogleLogin}>
+            <span style={{ fontWeight: 800, color: '#ea4335' }}>G</span> Google
+          </button>
+          <button className="social-login-btn" onClick={handleFacebookLogin}>
+            <span style={{ fontWeight: 800, color: '#1877f2' }}>f</span> Facebook
+          </button>
+        </div>
+        <p className="login-footer">
+          {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
+          <span
+            className="login-link"
+            id="toggle-auth-mode"
+            onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
+          >
+            {mode === 'login' ? 'Sign Up' : 'Sign In'}
+          </span>
+        </p>
+      </div>
+      {toast && (
+        <div className="toast">{toast}</div>
+      )}
+    </div>
+  );
+}
+‎src/pages/PGDetails.jsx‎
++209
+Lines changed: 209 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,209 @@
+import { useState } from 'react';
+import Amenities from '../components/Amenities';
+import ReviewCard from '../components/ReviewCard';
+import WeeklyMenu from '../components/WeeklyMenu';
+import BookingForm from '../components/BookingForm';
+import { useBooking } from '../context/BookingContext';
+export default function PGDetails({ pg, onBack }) {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+  const { selectedRoom, openBookingForm, showBookingForm, bookingPG } = useBooking();
+  const totalAvailable = Object.values(pg.floorAvailability).reduce((s, v) => s + v, 0);
+  const triggerToast = (msg) => {
+    setToastMsg(msg);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+  return (
+    <div className="details-page">
+      {/* Hero Image */}
+      <div className="details-hero">
+        <img src={pg.image} alt={pg.name} />
+        <div className="details-hero-overlay" />
+        <button className="details-back" onClick={onBack} id="back-btn">
+          ← Back to listings
+        </button>
+        <div className="details-hero-content">
+          <div className="container">
+            <div className="details-meta" style={{ marginBottom: '10px' }}>
+              <span style={{
+                padding: '5px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 700,
+                background: pg.gender === 'Male' ? 'rgba(59,130,246,0.8)' : pg.gender === 'Female' ? 'rgba(236,72,153,0.8)' : 'rgba(249,115,22,0.8)',
+                color: 'white',
+              }}>
+                {pg.gender === 'Male' ? '👨' : pg.gender === 'Female' ? '👩' : '👥'} {pg.gender}
+              </span>
+              <span style={{ padding: '5px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, background: 'rgba(251,146,60,0.2)', color: '#fff7ed', border: '1px solid rgba(251,146,60,0.3)' }}>
+                ⭐ {pg.rating} Rating
+              </span>
+              <span style={{ padding: '5px 14px', borderRadius: '20px', fontSize: '12px', fontWeight: 700, background: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>
+                📍 {pg.distance} from metro
+              </span>
+            </div>
+            <h1 className="details-name">{pg.name}</h1>
+            {/* Glassmorphism Amenities + Price Bar */}
+            <div className="hero-glass-bar">
+              <div className="hero-amenities-list">
+                {pg.amenities.map((amenity) => {
+                  const iconMap = {
+                    'WiFi': '📶', 'Lift': '🛗', 'Generator': '⚡', 'Food': '🍽️',
+                    'Gym': '🏋️', 'Laundry': '🧺', 'CCTV': '📹', 'Hot Water': '🚿',
+                    'AC': '❄️', 'Parking': '🅿️', 'TV': '📺', 'Housekeeping': '🧹',
+                    'Security': '🔒', 'Power Backup': '🔋', 'Swimming Pool': '🏊',
+                  };
+                  return (
+                    <span key={amenity} className="hero-amenity-chip">
+                      <span className="hero-amenity-icon">{iconMap[amenity] || '✦'}</span>
+                      {amenity}
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="hero-price-badge">
+                <span className="hero-price-from">Starting from</span>
+                <span className="hero-price-value">₹{Math.max(6000, pg.rent).toLocaleString()}</span>
+                <span className="hero-price-unit">/mo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Body */}
+      <div className="details-body">
+        <div className="container">
+          <div className="details-layout">
+            {/* Left Column */}
+            <div>
+                <h2 className="details-section-title">📋 About this PG</h2>
+                <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.8' }}>
+                  {pg.name} is a premium {pg.gender.toLowerCase()} PG located in the heart of {pg.location}, Bangalore.
+                  Situated just <strong style={{ color: 'var(--text-primary)' }}>{pg.distance}</strong> from the nearest metro station,
+                  it offers excellent connectivity to major tech parks. The PG is known for its
+                  top-class amenities, making it perfect for working professionals and students alike.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginTop: '24px' }}>
+                  {[
+                    { label: 'Location', value: pg.location, icon: '📍' },
+                    { label: 'Total Floors', value: `${pg.totalFloors} Floors`, icon: '🏢' },
+                    { label: 'Rooms Available', value: `${totalAvailable} Rooms`, icon: '🚪' },
+                  ].map((item) => (
+                    <div key={item.label} style={{
+                      padding: '16px',
+                      borderRadius: '12px',
+                      background: 'var(--bg-glass)',
+                      border: '1px solid var(--border)',
+                      textAlign: 'center',
+                    }}>
+                      <div style={{ fontSize: '24px', marginBottom: '8px' }}>{item.icon}</div>
+                      <div style={{ fontSize: '15px', fontWeight: 700 }}>{item.value}</div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>{item.label}</div>
+                    </div>
+                  ))}
+                </div>
+              {/* Amenities */}
+              <div className="details-section">
+                <h2 className="details-section-title">✨ Amenities</h2>
+                <Amenities amenities={pg.amenities} />
+              </div>
+              {/* Room availability removed as requested */}
+              {/* Sharing & Pricing removed as requested */}
+              {/* Weekly Food Menu moved under reviews to use available space */}
+              <div className="details-section">
+                <h2 className="details-section-title">🍽️ Weekly Food Menu</h2>
+                <WeeklyMenu />
+              </div>
+            </div>
+            {/* Sidebar */}
+            <div className="details-sidebar">
+              <div className="booking-card">
+                <div className="booking-price">
+                  ₹{pg.rent.toLocaleString()}
+                  <span> /month</span>
+                </div>
+                <div style={{ fontSize: '13px', color: totalAvailable > 0 ? 'var(--green)' : 'var(--red)', marginBottom: '4px' }}>
+                  {totalAvailable > 0 ? `✅ ${totalAvailable} rooms available` : '❌ Fully occupied'}
+                </div>
+                <div className="booking-divider" />
+                <table className="booking-info-table compact">
+                  <tbody>
+                    <tr>
+                      <th>Location</th>
+                      <td>{pg.location}</td>
+                    </tr>
+                    <tr>
+                      <th>Rooms</th>
+                      <td>{totalAvailable} available</td>
+                    </tr>
+                    <tr>
+                      <th>Rating</th>
+                      <td>{`⭐ ${pg.rating}`}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="booking-divider" />
+                <button
+                  className="booking-btn"
+                  id="book-now-detail-btn"
+                  onClick={() => openBookingForm(pg, selectedRoom)}
+                >
+                  📋 Book Now
+                </button>
+              </div>
+              {/* Sidebar: show a couple of tenant reviews in the space to the right */}
+              <div className="sidebar-reviews">
+                <h3 className="sidebar-section-title">💬 Tenant Reviews</h3>
+                {pg.reviews && pg.reviews.length > 0 ? (
+                  <div className="sidebar-reviews-list">
+                    {pg.reviews.map(review => (
+                      <ReviewCard key={review.id} review={review} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="empty-state-small">No reviews yet.</div>
+                )}
+              </div>
+              {/* Weekly Food Menu (moved to sidebar) */}
+              {/* Quick info card removed to declutter sidebar (was PGFinder Guarantee) */}
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Booking Form Modal */}
+      {showBookingForm && bookingPG && (
+        <BookingForm pg={bookingPG} />
+      )}
+      {showToast && (
+        <div className="toast">
+          {toastMsg}
+        </div>
+      )}
+    </div>
+  );
+}
+‎supabase_schema.sql‎
++116
+Lines changed: 116 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,116 @@
+-- =============================================
+-- PGFinder - Supabase Database Schema
+-- Run this in your Supabase SQL Editor
+-- =============================================
+-- 1. PROFILES TABLE (linked to Supabase Auth users)
+create table if not exists profiles (
+  id uuid references auth.users(id) on delete cascade primary key,
+  name text not null,
+  email text unique not null,
+  role text default 'tenant' check (role in ('tenant', 'owner')),
+  avatar_url text,
+  created_at timestamptz default now()
+);
+alter table profiles enable row level security;
+create policy "Users can view their own profile" on profiles for select using (auth.uid() = id);
+create policy "Users can update their own profile" on profiles for update using (auth.uid() = id);
+create policy "Users can insert their own profile" on profiles for insert with check (auth.uid() = id);
+-- Auto-create profile on signup
+create or replace function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, name, email, role)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'name', split_part(new.email, '@', 1)),
+    new.email,
+    coalesce(new.raw_user_meta_data->>'role', 'tenant')
+  )
+  on conflict (id) do nothing;
+  return new;
+end;
+$$ language plpgsql security definer;
+create or replace trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute procedure public.handle_new_user();
+-- 2. PG LISTINGS TABLE
+create table if not exists pg_listings (
+  id bigserial primary key,
+  name text not null,
+  location text not null,
+  gender text default 'Any' check (gender in ('Male', 'Female', 'Co-Live', 'Any')),
+  rent integer not null,
+  rating numeric(3,1) default 0,
+  distance text,
+  amenities text[] default '{}',
+  total_floors integer default 1,
+  floor_availability jsonb default '{}',
+  image text,
+  owner_id uuid references profiles(id),
+  created_at timestamptz default now()
+);
+alter table pg_listings enable row level security;
+create policy "Anyone can view PG listings" on pg_listings for select using (true);
+create policy "Owners can insert their own listings" on pg_listings for insert with check (auth.uid() = owner_id);
+create policy "Owners can update their own listings" on pg_listings for update using (auth.uid() = owner_id);
+create policy "Owners can delete their own listings" on pg_listings for delete using (auth.uid() = owner_id);
+-- 3. PG REVIEWS TABLE
+create table if not exists pg_reviews (
+  id bigserial primary key,
+  pg_id bigint references pg_listings(id) on delete cascade,
+  user_id uuid references profiles(id),
+  author text not null,
+  rating integer check (rating between 1 and 5),
+  text text not null,
+  date text default 'Just now',
+  avatar text,
+  created_at timestamptz default now()
+);
+alter table pg_reviews enable row level security;
+create policy "Anyone can read reviews" on pg_reviews for select using (true);
+create policy "Authenticated users can write reviews" on pg_reviews for insert with check (auth.uid() = user_id);
+create policy "Users can update their own reviews" on pg_reviews for update using (auth.uid() = user_id);
+-- 4. BOOKINGS TABLE
+create table if not exists bookings (
+  id bigserial primary key,
+  pg_id bigint references pg_listings(id) on delete cascade,
+  user_id uuid references profiles(id),
+  pg_name text,
+  user_name text,
+  user_email text,
+  user_phone text,
+  move_in_date date,
+  duration integer,
+  room_type text,
+  special_requests text,
+  status text default 'pending' check (status in ('pending', 'confirmed', 'cancelled')),
+  created_at timestamptz default now()
+);
+alter table bookings enable row level security;
+create policy "Users can view their own bookings" on bookings for select using (auth.uid() = user_id);
+create policy "Authenticated users can create bookings" on bookings for insert with check (auth.uid() = user_id);
+create policy "Owners can view bookings for their PGs" on bookings for select
+  using (exists (select 1 from pg_listings where id = pg_id and owner_id = auth.uid()));
+-- =============================================
+-- SAMPLE DATA - Optional seed data
+-- =============================================
+insert into pg_listings (name, location, gender, rent, rating, distance, amenities, total_floors, floor_availability, image)
+values
+  ('Green Valley PG', 'Marathahalli', 'Female', 9000, 4.6, '1.2 km', ARRAY['WiFi','Food','Laundry','CCTV','Hot Water'], 4, '{"1":1,"2":0,"3":3,"4":2}', 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80'),
+  ('Comfort Zone PG', 'Marathahalli', 'Female', 10500, 4.9, '1.5 km', ARRAY['WiFi','Lift','Food','Hot Water','Laundry','CCTV','AC'], 6, '{"1":0,"2":0,"3":1,"4":2,"5":1,"6":3}', 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80'),
+  ('Sunrise PG', 'Marathahalli', 'Male', 8500, 4.8, '0.8 km', ARRAY['WiFi','Lift','Generator','Food','Gym','Laundry'], 5, '{"1":0,"2":4,"3":2,"4":1,"5":0}', 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80'),
+  ('The Hub PG', 'Marathahalli', 'Co-Live', 8000, 4.5, '2.0 km', ARRAY['WiFi','Gym','Food','Laundry','Generator'], 4, '{"1":3,"2":2,"3":0,"4":1}', 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80'),
+  ('Budget Stay PG', 'Marathahalli', 'Male', 4500, 3.8, '2.5 km', ARRAY['WiFi','Food','Hot Water'], 3, '{"1":2,"2":5,"3":3}', 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=600&q=80'),
+  ('Luxury Living Suites', 'Marathahalli', 'Co-Live', 12500, 4.9, '0.4 km', ARRAY['WiFi','AC','Lift','Food','Gym','CCTV','Parking','Laundry'], 7, '{"1":0,"2":0,"3":0,"4":1,"5":0,"6":1,"7":1}', 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?w=600&q=80')
+on conflict do nothing;
+‎vite.config.js‎
++7
+Lines changed: 7 additions & 0 deletions
+Original file line number	Diff line number	Diff line change
+@@ -0,0 +1,7 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+0 commit comments
+Comments
+0
+ (0)
+Comment
+You're not receiving notifications from this thread.
+
+5 files remain
+Copied!
