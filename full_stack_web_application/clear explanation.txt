@@ -1,0 +1,1240 @@
+Detailed Guide to Python Full-Stack Application Development
+Let me break down each step with detailed explanations:
+
+1. Planning & Requirements 📋
+What is this phase?
+This is where you define what you're building and why. It's the foundation of your entire project.
+
+Key Activities:
+A. Define Project Scope
+
+What problem does your app solve?
+Who are your users?
+What are the core features?
+Example: "Build a task management app for teams to track projects"
+B. Create User Stories
+
+Write stories from user perspective
+Format: "As a [user type], I want [action], so that [benefit]"
+Example:
+"As a team member, I want to create tasks, so that I can organize work"
+"As a manager, I want to assign tasks to team members, so that I can delegate work"
+C. Define Features & Requirements
+
+Must-have features (MVP): Login, Create task, View tasks, Delete task
+Nice-to-have features: Task priority, due dates, comments, notifications
+Technical requirements: Security, scalability, performance
+D. Plan Database Entities
+
+What data do you need to store?
+Example for task app:
+Users (name, email, password)
+Projects (name, description, owner)
+Tasks (title, description, status, assignee, due date)
+Comments (text, author, timestamp)
+Tools to Use:
+Trello, Jira, or GitHub Projects for task management
+Draw.io or Figma for mockups
+Notion or Google Docs for documentation
+2. Architecture & Design 🏗️
+What is this phase?
+You decide how to build it - technology choices and system design.
+
+A. Choose Your Tech Stack
+Backend Framework Options:
+Django (Full-featured)
+
+Pros: Complete framework with built-in admin, ORM, authentication
+Best for: Large projects, monoliths, rapid development
+Cons: Heavier, might be overkill for simple APIs
+Python
+# Django project structure
+myproject/
+├── manage.py
+├── myproject/
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── myapp/
+    ├── models.py
+    ├── views.py
+    ├── urls.py
+    └── serializers.py
+FastAPI (Modern, fast)
+
+Pros: High performance, automatic API docs, async support
+Best for: APIs, microservices, high-traffic apps
+Cons: Smaller ecosystem, need separate tools
+Python
+# FastAPI structure
+my_api/
+├── main.py
+├── models.py
+├── database.py
+├── schemas.py
+└── routers/
+    ├── users.py
+    └── tasks.py
+Flask (Lightweight)
+
+Pros: Minimal, flexible, learning-friendly
+Best for: Small projects, custom solutions, learning
+Cons: Need to install many extensions, less structure
+Python
+# Flask structure
+app/
+├── app.py
+├── models.py
+├── routes/
+│   ├── auth.py
+│   └── tasks.py
+└── templates/
+Frontend Framework Options:
+React: Most popular, large ecosystem
+Vue: Easier to learn, lighter weight
+Vanilla JS: Simple projects
+Database Options:
+PostgreSQL: Relational, powerful, great for structured data
+MySQL: Reliable, widely used
+SQLite: For development/small projects
+MongoDB: NoSQL, for flexible schemas
+B. Design System Architecture
+3-Tier Architecture (Most common):
+
+Code
+┌─────────────────────────────┐
+│   Frontend (React/Vue)      │
+│  (UI, User Interaction)     │
+└────────────┬────────────────┘
+             │ HTTP/REST API
+┌────────────▼────────────────┐
+│   Backend (Python)          │
+│  (Business Logic, APIs)     │
+└────────────┬────────────────┘
+             │ SQL Queries
+┌────────────▼────────────────┐
+│   Database                  │
+│  (PostgreSQL/MySQL)         │
+└─────────────────────────────┘
+C. Design Database Schema (ERD - Entity Relationship Diagram)
+Example for Task Management App:
+
+Code
+USER
+├── id (Primary Key)
+├── email (Unique)
+├── username
+├── password (hashed)
+├── created_at
+
+PROJECT
+├── id (Primary Key)
+├── name
+├── description
+├── owner_id (Foreign Key → USER)
+├── created_at
+
+TASK
+├── id (Primary Key)
+├── title
+├── description
+├── status (todo, in_progress, done)
+├── priority (low, medium, high)
+├── project_id (Foreign Key → PROJECT)
+├── assignee_id (Foreign Key → USER)
+├── due_date
+├── created_at
+├── updated_at
+
+COMMENT
+├── id (Primary Key)
+├── text
+├── task_id (Foreign Key → TASK)
+├── author_id (Foreign Key → USER)
+├── created_at
+D. Design API Endpoints
+For a Task Management App:
+
+Code
+Authentication:
+POST   /api/auth/register      - Register user
+POST   /api/auth/login         - Login user
+POST   /api/auth/logout        - Logout user
+
+Projects:
+GET    /api/projects           - List user's projects
+POST   /api/projects           - Create new project
+GET    /api/projects/{id}      - Get project details
+PUT    /api/projects/{id}      - Update project
+DELETE /api/projects/{id}      - Delete project
+
+Tasks:
+GET    /api/projects/{id}/tasks           - List tasks in project
+POST   /api/projects/{id}/tasks           - Create task
+GET    /api/tasks/{id}                    - Get task details
+PUT    /api/tasks/{id}                    - Update task
+DELETE /api/tasks/{id}                    - Delete task
+POST   /api/tasks/{id}/assign             - Assign task to user
+
+Comments:
+POST   /api/tasks/{id}/comments           - Add comment
+GET    /api/tasks/{id}/comments           - Get comments
+DELETE /api/comments/{id}                 - Delete comment
+3. Setup Project Repository 📁
+A. Create GitHub Repository
+Go to GitHub.com:
+
+Click "New" to create repository
+Name: task-management-app
+Description: "A full-stack task management application"
+Choose: Public or Private
+Initialize with README
+B. Clone Locally
+bash
+git clone https://github.com/yourusername/task-management-app.git
+cd task-management-app
+C. Create Project Structure
+Code
+task-management-app/
+├── backend/                  # Python backend
+│   ├── venv/                # Virtual environment
+│   ├── requirements.txt      # Python dependencies
+│   ├── .env                 # Environment variables
+│   ├── .gitignore
+│   ├── config.py            # Configuration
+│   ├── models.py            # Database models
+│   ├── database.py          # Database setup
+│   ├── main.py              # Main app file (FastAPI)
+│   ├── or manage.py         # For Django
+│   ├── routes/              # API routes
+│   │   ├── auth.py
+│   │   ├── projects.py
+│   │   └── tasks.py
+│   ├── schemas/             # Data validation schemas
+│   │   ├── user.py
+│   │   ├── project.py
+│   │   └── task.py
+│   ├── utils/               # Utility functions
+│   │   ├── auth.py          # Authentication logic
+│   │   └── validators.py
+│   └── tests/               # Unit tests
+│       ├── test_auth.py
+│       ├── test_tasks.py
+│       └── test_projects.py
+│
+├── frontend/                # React/Vue frontend
+│   ├── public/
+│   ├── src/
+│   │   ├── components/      # React components
+│   │   ├── pages/           # Page components
+│   │   ├── services/        # API calls
+│   │   ├── context/         # State management
+│   │   ├── styles/          # CSS files
+│   │   └── App.js
+│   ├── package.json
+│   └── .env
+│
+├── README.md                # Project documentation
+├── .gitignore              # Git ignore rules
+└── docker-compose.yml      # Optional: Docker setup
+D. Create .gitignore
+Code
+# Backend
+backend/venv/
+backend/__pycache__/
+backend/.env
+backend/*.pyc
+backend/.pytest_cache/
+
+# Frontend
+frontend/node_modules/
+frontend/.env.local
+frontend/build/
+frontend/.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+E. Create README.md
+Markdown
+# Task Management App
+
+## Description
+A full-stack web application for managing tasks and projects in teams.
+
+## Tech Stack
+- Backend: FastAPI + Python
+- Frontend: React
+- Database: PostgreSQL
+
+## Setup Instructions
+
+### Backend Setup
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python main.py
+Frontend Setup
+bash
+cd frontend
+npm install
+npm start
+Features
+User authentication
+Create/manage projects
+Create/manage tasks
+Assign tasks to team members
+Code
+
+---
+
+## 4. **Backend Development** 🐍
+
+Let me use **FastAPI** as an example (most popular for Python APIs now):
+
+### A. Setup Python Environment
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+B. Install Dependencies
+Create requirements.txt:
+
+Code
+fastapi==0.104.1
+uvicorn==0.24.0
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+pydantic==2.5.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pytest==7.4.3
+pytest-asyncio==0.21.1
+Install:
+
+bash
+pip install -r requirements.txt
+C. Setup Database Connection
+database.py:
+
+Python
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/taskdb")
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+D. Create Database Models
+models.py:
+
+Python
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Enum
+from sqlalchemy.orm import relationship
+from datetime import datetime
+from database import Base
+
+class User(Base):
+    __tablename__ = "users"
+    
+    id = Column(Integer, primary_key=True)
+    email = Column(String, unique=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    projects = relationship("Project", back_populates="owner")
+    tasks = relationship("Task", back_populates="assignee")
+    comments = relationship("Comment", back_populates="author")
+
+class Project(Base):
+    __tablename__ = "projects"
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, index=True)
+    description = Column(String)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    owner = relationship("User", back_populates="projects")
+    tasks = relationship("Task", back_populates="project")
+
+class Task(Base):
+    __tablename__ = "tasks"
+    
+    id = Column(Integer, primary_key=True)
+    title = Column(String, index=True)
+    description = Column(String)
+    status = Column(String, default="todo")  # todo, in_progress, done
+    priority = Column(String, default="medium")  # low, medium, high
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    assignee_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    due_date = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    project = relationship("Project", back_populates="tasks")
+    assignee = relationship("User", back_populates="tasks")
+    comments = relationship("Comment", back_populates="task")
+
+class Comment(Base):
+    __tablename__ = "comments"
+    
+    id = Column(Integer, primary_key=True)
+    text = Column(String)
+    task_id = Column(Integer, ForeignKey("tasks.id"))
+    author_id = Column(Integer, ForeignKey("users.id"))
+    created_at = Column(DateTime, default=datetime.utcnow)
+    
+    task = relationship("Task", back_populates="comments")
+    author = relationship("User", back_populates="comments")
+E. Create Data Validation Schemas (Pydantic)
+schemas/user.py:
+
+Python
+from pydantic import BaseModel, EmailStr
+from datetime import datetime
+from typing import Optional
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    username: str
+    password: str
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class UserResponse(BaseModel):
+    id: int
+    email: str
+    username: str
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+schemas/task.py:
+
+Python
+from pydantic import BaseModel
+from datetime import datetime
+from typing import Optional
+
+class TaskCreate(BaseModel):
+    title: str
+    description: Optional[str] = None
+    priority: str = "medium"
+    due_date: Optional[datetime] = None
+
+class TaskUpdate(BaseModel):
+    title: Optional[str] = None
+    description: Optional[str] = None
+    status: Optional[str] = None
+    priority: Optional[str] = None
+    assignee_id: Optional[int] = None
+
+class TaskResponse(BaseModel):
+    id: int
+    title: str
+    description: Optional[str]
+    status: str
+    priority: str
+    project_id: int
+    assignee_id: Optional[int]
+    due_date: Optional[datetime]
+    created_at: datetime
+    
+    class Config:
+        from_attributes = True
+F. Create Authentication Logic
+utils/auth.py:
+
+Python
+from passlib.context import CryptContext
+from datetime import datetime, timedelta
+from jose import JWTError, jwt
+from typing import Optional
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def hash_password(password: str) -> str:
+    """Hash a password"""
+    return pwd_context.hash(password)
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    """Verify a password"""
+    return pwd_context.verify(plain_password, hashed_password)
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    """Create JWT token"""
+    to_encode = data.copy()
+    if expires_delta:
+        expire = datetime.utcnow() + expires_delta
+    else:
+        expire = datetime.utcnow() + timedelta(minutes=15)
+    to_encode.update({"exp": expire})
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+def decode_token(token: str):
+    """Decode JWT token"""
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            return None
+        return email
+    except JWTError:
+        return None
+G. Create API Routes
+routes/auth.py:
+
+Python
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from database import get_db
+from models import User
+from schemas.user import UserRegister, UserLogin, UserResponse
+from utils.auth import hash_password, verify_password, create_access_token
+from datetime import timedelta
+
+router = APIRouter(prefix="/api/auth", tags=["auth"])
+
+@router.post("/register", response_model=UserResponse)
+async def register(user: UserRegister, db: Session = Depends(get_db)):
+    """Register a new user"""
+    # Check if user already exists
+    existing_user = db.query(User).filter(User.email == user.email).first()
+    if existing_user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered"
+        )
+    
+    # Create new user
+    new_user = User(
+        email=user.email,
+        username=user.username,
+        hashed_password=hash_password(user.password)
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
+@router.post("/login")
+async def login(user: UserLogin, db: Session = Depends(get_db)):
+    """Login user and return token"""
+    # Find user by email
+    db_user = db.query(User).filter(User.email == user.email).first()
+    if not db_user or not verify_password(user.password, db_user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+    
+    # Create access token
+    access_token_expires = timedelta(minutes=30)
+    access_token = create_access_token(
+        data={"sub": db_user.email},
+        expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+routes/tasks.py:
+
+Python
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from database import get_db
+from models import Task, Project, User
+from schemas.task import TaskCreate, TaskUpdate, TaskResponse
+from utils.auth import decode_token
+
+router = APIRouter(prefix="/api", tags=["tasks"])
+
+def get_current_user(token: str, db: Session = Depends(get_db)):
+    """Get current user from token"""
+    email = decode_token(token)
+    if not email:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+    return user
+
+@router.get("/projects/{project_id}/tasks", response_model=list[TaskResponse])
+async def get_tasks(project_id: int, db: Session = Depends(get_db)):
+    """Get all tasks for a project"""
+    tasks = db.query(Task).filter(Task.project_id == project_id).all()
+    return tasks
+
+@router.post("/projects/{project_id}/tasks", response_model=TaskResponse)
+async def create_task(
+    project_id: int,
+    task: TaskCreate,
+    db: Session = Depends(get_db)
+):
+    """Create a new task"""
+    # Check if project exists
+    project = db.query(Project).filter(Project.id == project_id).first()
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    
+    # Create new task
+    new_task = Task(
+        title=task.title,
+        description=task.description,
+        priority=task.priority,
+        due_date=task.due_date,
+        project_id=project_id
+    )
+    db.add(new_task)
+    db.commit()
+    db.refresh(new_task)
+    return new_task
+
+@router.put("/tasks/{task_id}", response_model=TaskResponse)
+async def update_task(
+    task_id: int,
+    task_update: TaskUpdate,
+    db: Session = Depends(get_db)
+):
+    """Update a task"""
+    task = db.query(Task).filter(Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    # Update fields
+    if task_update.title is not None:
+        task.title = task_update.title
+    if task_update.status is not None:
+        task.status = task_update.status
+    if task_update.priority is not None:
+        task.priority = task_update.priority
+    
+    db.commit()
+    db.refresh(task)
+    return task
+
+@router.delete("/tasks/{task_id}")
+async def delete_task(task_id: int, db: Session = Depends(get_db)):
+    """Delete a task"""
+    task = db.query(Task).filter(Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    
+    db.delete(task)
+    db.commit()
+    return {"message": "Task deleted successfully"}
+H. Main Application File
+main.py:
+
+Python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from database import engine, Base
+from models import User, Project, Task, Comment
+from routes import auth, tasks
+
+# Create tables
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(
+    title="Task Management API",
+    description="A full-stack task management application",
+    version="1.0.0"
+)
+
+# CORS middleware for frontend communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # React app URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(auth.router)
+app.include_router(tasks.router)
+
+@app.get("/")
+async def root():
+    return {"message": "Task Management API is running"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+I. Unit Tests
+tests/test_auth.py:
+
+Python
+import pytest
+from fastapi.testclient import TestClient
+from main import app
+from database import get_db, Base, SessionLocal
+from models import User
+from sqlalchemy import create_engine
+from sqlalchemy.pool import StaticPool
+
+# Use in-memory SQLite for testing
+SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL,
+    connect_args={"check_same_thread": False},
+    poolclass=StaticPool,
+)
+Base.metadata.create_all(bind=engine)
+
+def override_get_db():
+    try:
+        db = SessionLocal()
+        yield db
+    finally:
+        db.close()
+
+app.dependency_overrides[get_db] = override_get_db
+client = TestClient(app)
+
+def test_register_user():
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "email": "test@example.com",
+            "username": "testuser",
+            "password": "password123"
+        }
+    )
+    assert response.status_code == 200
+    assert response.json()["email"] == "test@example.com"
+
+def test_login_user():
+    # First register
+    client.post(
+        "/api/auth/register",
+        json={
+            "email": "test@example.com",
+            "username": "testuser",
+            "password": "password123"
+        }
+    )
+    
+    # Then login
+    response = client.post(
+        "/api/auth/login",
+        json={
+            "email": "test@example.com",
+            "password": "password123"
+        }
+    )
+    assert response.status_code == 200
+    assert "access_token" in response.json()
+5. Frontend Development ⚛️
+A. Setup React Project
+bash
+npx create-react-app frontend
+cd frontend
+npm install axios react-router-dom
+B. Create Folder Structure
+Code
+src/
+├── components/        # Reusable components
+│   ├── TaskForm.jsx
+│   ├── TaskCard.jsx
+│   └── Header.jsx
+├── pages/            # Page components
+│   ├── LoginPage.jsx
+│   ├── RegisterPage.jsx
+│   ├── DashboardPage.jsx
+│   └── ProjectPage.jsx
+├── services/         # API calls
+│   └── api.js
+├── context/          # State management
+│   └── AuthContext.js
+├── styles/          # CSS files
+│   └── App.css
+├── App.js
+└── index.js
+C. Setup API Service
+services/api.js:
+
+JavaScript
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8000/api';
+
+// Create axios instance
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Add token to requests
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// Auth APIs
+export const authAPI = {
+  register: (email, username, password) =>
+    api.post('/auth/register', { email, username, password }),
+  login: (email, password) =>
+    api.post('/auth/login', { email, password }),
+};
+
+// Tasks APIs
+export const tasksAPI = {
+  getTasks: (projectId) =>
+    api.get(`/projects/${projectId}/tasks`),
+  createTask: (projectId, taskData) =>
+    api.post(`/projects/${projectId}/tasks`, taskData),
+  updateTask: (taskId, taskData) =>
+    api.put(`/tasks/${taskId}`, taskData),
+  deleteTask: (taskId) =>
+    api.delete(`/tasks/${taskId}`),
+};
+D. Create Authentication Context
+context/AuthContext.js:
+
+JavaScript
+import React, { createContext, useState, useContext } from 'react';
+import { authAPI } from '../services/api';
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('access_token'));
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const register = async (email, username, password) => {
+    try {
+      setLoading(true);
+      const response = await authAPI.register(email, username, password);
+      setUser(response.data);
+      return true;
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Registration failed');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const login = async (email, password) => {
+    try {
+      setLoading(true);
+      const response = await authAPI.login(email, password);
+      const accessToken = response.data.access_token;
+      localStorage.setItem('access_token', accessToken);
+      setToken(accessToken);
+      setUser({ email });
+      return true;
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Login failed');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem('access_token');
+    setToken(null);
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{
+      user,
+      token,
+      loading,
+      error,
+      register,
+      login,
+      logout,
+      isAuthenticated: !!token,
+    }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
+E. Create Components
+components/TaskForm.jsx:
+
+JavaScript
+import React, { useState } from 'react';
+import { tasksAPI } from '../services/api';
+
+const TaskForm = ({ projectId, onTaskCreated }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [priority, setPriority] = useState('medium');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const response = await tasksAPI.createTask(projectId, {
+        title,
+        description,
+        priority,
+      });
+      setTitle('');
+      setDescription('');
+      setPriority('medium');
+      onTaskCreated(response.data);
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Failed to create task');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Task Title *</label>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+      
+      <div>
+        <label>Description</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+      
+      <div>
+        <label>Priority</label>
+        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      
+      <button type="submit" disabled={loading}>
+        {loading ? 'Creating...' : 'Create Task'}
+      </button>
+    </form>
+  );
+};
+
+export default TaskForm;
+components/TaskCard.jsx:
+
+JavaScript
+import React from 'react';
+import { tasksAPI } from '../services/api';
+
+const TaskCard = ({ task, onTaskDeleted, onTaskUpdated }) => {
+  const handleDelete = async () => {
+    if (window.confirm('Are you sure?')) {
+      try {
+        await tasksAPI.deleteTask(task.id);
+        onTaskDeleted(task.id);
+      } catch (err) {
+        console.error('Failed to delete task');
+      }
+    }
+  };
+
+  const handleStatusChange = async (newStatus) => {
+    try {
+      const response = await tasksAPI.updateTask(task.id, {
+        status: newStatus,
+      });
+      onTaskUpdated(response.data);
+    } catch (err) {
+      console.error('Failed to update task');
+    }
+  };
+
+  return (
+    <div className="task-card">
+      <h3>{task.title}</h3>
+      <p>{task.description}</p>
+      <p>Priority: <strong>{task.priority}</strong></p>
+      
+      <select value={task.status} onChange={(e) => handleStatusChange(e.target.value)}>
+        <option value="todo">To Do</option>
+        <option value="in_progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+      
+      <button onClick={handleDelete}>Delete</button>
+    </div>
+  );
+};
+
+export default TaskCard;
+F. Create Pages
+pages/LoginPage.jsx:
+
+JavaScript
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login, loading, error } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login(email, password);
+    if (success) {
+      navigate('/dashboard');
+    }
+  };
+
+  return (
+    <div className="login-container">
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default LoginPage;
+G. Main App File
+App.js:
+
+JavaScript
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
+import './App.css';
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
+}
+
+export default App;
+6. Database Setup 🗄️
+A. Create Database
+bash
+# Using PostgreSQL
+psql -U postgres
+CREATE DATABASE taskdb;
+B. Create Tables (Migrations)
+For FastAPI with SQLAlchemy:
+
+Python
+# This is automatic when you run main.py
+# It creates tables from models.py using:
+Base.metadata.create_all(bind=engine)
+For Django (alternative):
+
+bash
+python manage.py makemigrations
+python manage.py migrate
+C. Seed Data (Optional)
+seed.py:
+
+Python
+from database import SessionLocal
+from models import User, Project
+from utils.auth import hash_password
+
+def seed_data():
+    db = SessionLocal()
+    
+    # Create sample user
+    user = User(
+        email="john@example.com",
+        username="john",
+        hashed_password=hash_password("password123")
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    
+    # Create sample project
+    project = Project(
+        name="Website Redesign",
+        description="Redesign company website",
+        owner_id=user.id
+    )
+    db.add(project)
+    db.commit()
+    
+    print("✅ Seed data created!")
+
+if __name__ == "__main__":
+    seed_data()
+Run: python seed.py
+
+7. Integration & Testing ✅
+A. Test Backend APIs
+Use Postman or Insomnia:
+
+Code
+POST http://localhost:8000/api/auth/register
+Body: {
+  "email": "test@example.com",
+  "username": "testuser",
+  "password": "password123"
+}
+
+POST http://localhost:8000/api/auth/login
+Body: {
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+GET http://localhost:8000/api/projects/1/tasks
+Headers: {
+  "Authorization": "Bearer <token>"
+}
+B. Run Unit Tests
+bash
+# Backend
+cd backend
+pytest
+
+# Frontend
+cd frontend
+npm test
+C. Test End-to-End Workflows
+Register new user
+Login
+Create project
+Create tasks
+Update task status
+Delete task
+8. Deployment 🚀
+A. Deploy Backend (FastAPI on Heroku)
+Create .env file:
+Code
+SECRET_KEY=your-secret-key
+DATABASE_URL=postgresql://user:pass@localhost/taskdb
+Create Procfile:
+Code
+web: uvicorn main:app --host 0.0.0.0 --port $PORT
+Deploy:
+bash
+heroku login
+heroku create task-management-api
+git push heroku main
+heroku config:set DATABASE_URL=<postgresql-url>
+B. Deploy Frontend (React on Netlify)
+bash
+npm run build
+# Deploy build/ folder to Netlify
+C. Setup Database
+Use managed PostgreSQL service like:
+
+AWS RDS
+Heroku Postgres
+DigitalOcean Managed Databases
+9. Launch & Maintenance 📊
+A. Monitoring
+Set up error logging (Sentry)
+Monitor performance (New Relic)
+Check database health
+B. User Feedback
+Gather feedback from users
+Fix bugs
+Plan improvements
+C. Regular Maintenance
+Update dependencies
+Security patches
+Database backups
