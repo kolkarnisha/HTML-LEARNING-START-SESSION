@@ -1,0 +1,61 @@
+Python Full-Stack Application Development Steps
+1. Planning & Requirements
+Define project scope, goals, and features
+Create user stories and requirements
+Plan database structure
+2. Architecture & Design
+Backend: Django, Flask, or FastAPI
+Frontend: React, Vue, or vanilla JavaScript
+Database: PostgreSQL, MySQL, or MongoDB
+Design API endpoints (REST or GraphQL)
+Create database schema
+3. Setup Project Repository
+Code
+my-project/
+├── backend/          # Python backend
+├── frontend/         # JavaScript/React frontend
+├── README.md
+└── .gitignore
+Create GitHub repo
+Initialize git
+Set up project folders
+4. Backend Development (Python)
+Set up Python virtual environment (venv)
+Choose framework: Django, Flask, or FastAPI
+Create models (database schema)
+Build REST APIs
+Implement authentication (JWT, sessions)
+Add validation and error handling
+Write tests (pytest, unittest)
+Set up logging
+5. Frontend Development
+Set up React/Vue project
+Create components and pages
+Build forms with validation
+Integrate with Python backend APIs
+Handle state management (Redux, Vuex, Context API)
+Add styling (CSS, Tailwind, Bootstrap)
+6. Database Setup
+Design and create database schema
+Set up migrations (Alembic for SQLAlchemy, Django migrations)
+Create seed data if needed
+7. Integration & Testing
+Connect frontend to Python backend
+Test all API endpoints
+Test end-to-end workflows
+Performance testing
+8. Deployment
+Backend: Deploy to Heroku, AWS, DigitalOcean, or PythonAnywhere
+Frontend: Deploy to Netlify, Vercel, or GitHub Pages
+Set up CI/CD with GitHub Actions
+Configure environment variables
+9. Launch & Maintenance
+Monitor application performance
+Fix bugs and optimize
+Plan updates
+Popular Python Full-Stack Stacks:
+Stack	Backend	Frontend	Database
+Django Stack	Django	React/Vue	PostgreSQL
+FastAPI Stack	FastAPI	React/Vue	PostgreSQL/MongoDB
+Flask Stack	Flask	React/Vue	PostgreSQL/SQLite
+Django REST Stack	Django REST Framework	React/Vue	PostgreSQL
