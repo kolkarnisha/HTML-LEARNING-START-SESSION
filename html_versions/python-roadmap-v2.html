@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Stack Trail — Python Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<style>
+/* =========================================================
+   TOKENS
+========================================================= */
+:root{
+  --ink:#0F1E1D;
+  --ink-2:#16302D;
+  --paper:#EEF3EC;
+  --paper-2:#FFFFFF;
+  --line:#D8E0D3;
+  --amber:#E2A83A;
+  --amber-dark:#B9822A;
+  --teal:#2F7A6E;
+  --teal-light:#DCEFE9;
+  --blue:#3B6E8F;
+  --red:#C1553D;
+  --text:#16302D;
+  --text-dim:#5B6E67;
+  --text-inv:#EAF1EC;
+  --radius-sm:6px;
+  --radius:10px;
+  --shadow:0 1px 2px rgba(15,30,29,.06), 0 8px 24px -12px rgba(15,30,29,.18);
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--font-body);
+  background:var(--paper);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;color:var(--ink-2);}
+p{margin:0 0 .75em;}
+a{color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+::selection{background:var(--amber);color:var(--ink);}
+
+.step-tag{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:.02em;
+  color:var(--teal);
+  background:var(--teal-light);
+  padding:2px 8px;
+  border-radius:20px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* =========================================================
+   LOGIN SCREEN
+========================================================= */
+.login-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(155deg,var(--ink) 0%,var(--ink-2) 55%, #1d3d38 100%);
+  padding:24px;
+}
+.login-shell{display:flex;gap:40px;align-items:center;max-width:920px;width:100%;}
+.login-pitch{flex:1;color:var(--text-inv);min-width:0;}
+.login-pitch .eyebrow{font-family:var(--font-mono);font-size:12px;color:var(--amber);margin-bottom:12px;}
+.login-pitch h1{font-size:32px;line-height:1.18;color:#fff;max-width:380px;letter-spacing:-.02em;}
+.login-pitch p{color:#9FB6AE;font-size:14px;max-width:360px;margin-top:12px;}
+.login-pitch .pitch-stats{display:flex;gap:22px;margin-top:26px;}
+.login-pitch .pitch-stats div{font-family:var(--font-display);font-size:22px;color:#fff;}
+.login-pitch .pitch-stats span{display:block;font-family:var(--font-body);font-size:11.5px;color:#8FA79F;margin-top:2px;}
+.login-card{background:var(--paper-2);border-radius:20px;max-width:400px;width:100%;padding:34px 32px;box-shadow:0 30px 80px rgba(0,0,0,.4);flex-shrink:0;}
+.login-mark{width:44px;height:44px;border-radius:11px;background:linear-gradient(155deg,var(--amber),var(--teal));display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:700;color:var(--ink);font-size:18px;margin-bottom:16px;}
+.login-card h2{font-size:20px;margin-bottom:4px;}
+.login-card .sub{color:var(--text-dim);font-size:13px;margin-bottom:20px;}
+.login-field{margin-bottom:14px;}
+.login-field label{font-size:12px;font-weight:600;color:var(--ink-2);display:block;margin-bottom:6px;}
+.login-field input{width:100%;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-size:14px;font-family:inherit;}
+.login-field input:focus{outline:none;border-color:var(--teal);}
+.avatar-row{display:flex;gap:7px;margin-bottom:6px;flex-wrap:wrap;}
+.avatar-opt{width:40px;height:40px;border-radius:10px;border:2px solid var(--line);background:#fff;font-size:18px;display:flex;align-items:center;justify-content:center;}
+.avatar-opt.selected{border-color:var(--amber);background:var(--teal-light);}
+.login-note{font-size:11px;color:var(--text-dim);margin-top:16px;line-height:1.55;}
+@media(max-width:820px){.login-shell{flex-direction:column;}.login-pitch{text-align:center;}.login-pitch h1,.login-pitch p{max-width:none;margin-left:auto;margin-right:auto;}.login-pitch .pitch-stats{justify-content:center;}.login-mark{margin-left:auto;margin-right:auto;}}
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+#app{display:flex;min-height:100vh;}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+  width:290px;
+  flex-shrink:0;
+  background:var(--ink);
+  color:var(--text-inv);
+  display:flex;
+  flex-direction:column;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  z-index:40;
+}
+.sidebar-brand{
+  padding:22px 20px 14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sidebar-brand .mark{
+  width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(155deg,var(--amber),var(--teal));
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-weight:600;color:var(--ink);font-size:15px;
+}
+.sidebar-brand .name{font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:-.01em;}
+.sidebar-brand .sub{font-family:var(--font-mono);font-size:10.5px;color:#8FA79F;margin-top:1px;}
+
+.profile-block{padding:13px 20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;}
+.profile-avatar{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.profile-name{font-size:13px;font-weight:600;color:var(--text-inv);}
+.profile-email{font-size:10.5px;color:#8FA79F;margin-top:1px;}
+
+.sidebar-progress{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sidebar-progress .label{display:flex;justify-content:space-between;font-size:12px;color:#9FB6AE;margin-bottom:8px;}
+.sidebar-progress .pct{color:var(--amber);font-family:var(--font-mono);font-weight:600;}
+.track{height:6px;border-radius:4px;background:rgba(255,255,255,.1);overflow:hidden;}
+.track .fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--amber));transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+.nav-list{list-style:none;margin:0;padding:10px 12px 16px;flex:1;}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;border-radius:8px;
+  margin-bottom:2px;cursor:pointer;
+  border:1px solid transparent;
+  transition:background .15s ease;
+}
+.nav-item:hover{background:rgba(255,255,255,.05);}
+.nav-item.locked{cursor:not-allowed;opacity:.42;}
+.nav-item.locked:hover{background:transparent;}
+.nav-item.current{background:rgba(226,168,58,.12);border-color:rgba(226,168,58,.35);}
+.nav-item .num{
+  font-family:var(--font-mono);font-size:11px;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:rgba(255,255,255,.08);color:#B9C9C3;
+}
+.nav-item.done .num{background:var(--teal);color:#fff;}
+.nav-item.current .num{background:var(--amber);color:var(--ink);}
+.nav-item .label{font-size:13.5px;font-weight:500;color:var(--text-inv);}
+.nav-item .icon-lock{margin-left:auto;font-size:12px;opacity:.7;}
+.nav-item .icon-check{margin-left:auto;color:var(--teal);font-size:13px;}
+
+.sidebar-footer{padding:12px 12px 18px;border-top:1px solid rgba(255,255,255,.08);}
+.sidebar-footer .nav-item{font-size:13px;}
+
+/* ---------- MOBILE SIDEBAR ---------- */
+.sidebar-scrim{display:none;}
+.mobile-topbar{display:none;}
+
+@media(max-width:900px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .25s ease;box-shadow:0 0 40px rgba(0,0,0,.35);}
+  .sidebar.open{transform:translateX(0);}
+  .sidebar-scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:39;}
+  .sidebar-scrim.show{display:block;}
+  .mobile-topbar{
+    display:flex;align-items:center;gap:12px;justify-content:space-between;
+    position:sticky;top:0;z-index:30;background:var(--ink);color:var(--text-inv);
+    padding:12px 16px;
+  }
+  .mobile-topbar .name{font-family:var(--font-display);font-weight:700;font-size:15px;}
+  .hamburger{background:none;border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;padding:8px 10px;font-size:16px;line-height:1;}
+}
+
+/* ---------- MAIN ---------- */
+.main{flex:1;min-width:0;}
+.topbar{
+  display:flex;align-items:center;gap:16px;
+  padding:16px 32px;background:var(--paper-2);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:20;
+}
+@media(max-width:900px){.topbar{padding:12px 16px;flex-wrap:wrap;top:52px;}}
+.search-wrap{position:relative;flex:1;max-width:420px;}
+.search-wrap input{
+  width:100%;padding:9px 14px 9px 34px;border-radius:8px;border:1px solid var(--line);
+  background:var(--paper);font-size:13.5px;color:var(--text);outline:none;
+}
+.search-wrap input:focus{border-color:var(--teal);background:#fff;}
+.search-wrap .sic{position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.5;font-size:14px;}
+.search-results{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow);max-height:320px;overflow-y:auto;z-index:50;
+}
+.search-results .sr-item{padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;font-size:13px;}
+.search-results .sr-item:last-child{border:none;}
+.search-results .sr-item:hover{background:var(--paper);}
+.search-results .sr-item .sr-title{font-weight:600;color:var(--ink-2);}
+.search-results .sr-item .sr-meta{color:var(--text-dim);font-size:11.5px;margin-top:2px;}
+.search-results .sr-empty{padding:16px;color:var(--text-dim);font-size:13px;text-align:center;}
+
+.topbar-actions{display:flex;gap:8px;margin-left:auto;}
+.tb-btn{
+  border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 13px;font-size:13px;font-weight:500;
+  color:var(--ink-2);display:flex;align-items:center;gap:6px;
+}
+.tb-btn:hover{border-color:var(--teal);}
+.tb-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink);}
+
+.content{padding:32px;max-width:920px;margin:0 auto;}
+@media(max-width:900px){.content{padding:20px 16px;}}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+.hero{
+  background:linear-gradient(155deg,var(--ink) 0%,var(--ink-2) 60%, #1d3d38 100%);
+  color:var(--text-inv);border-radius:16px;padding:34px 34px;position:relative;overflow:hidden;margin-bottom:22px;
+}
+.hero::after{
+  content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(226,168,58,.25),transparent 70%);
+}
+.hero-flex{display:flex;gap:30px;align-items:center;position:relative;}
+.hero-flex .hero-copy{flex:1;min-width:0;}
+.hero-mock{width:230px;flex-shrink:0;}
+.hero-mock svg{width:100%;height:auto;filter:drop-shadow(0 20px 36px rgba(0,0,0,.4));}
+@media(max-width:820px){.hero-flex{flex-direction:column;}.hero-mock{width:100%;max-width:230px;}}
+.hero .eyebrow{font-family:var(--font-mono);font-size:12px;color:var(--amber);margin-bottom:10px;}
+.hero h1{font-size:28px;line-height:1.15;letter-spacing:-.02em;color:#fff;}
+.hero p.lead{color:#B9C9C3;margin-top:12px;font-size:14.5px;}
+.hero .cta-row{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap;}
+.btn{
+  border:none;border-radius:9px;padding:11px 20px;font-size:14px;font-weight:600;
+  display:inline-flex;align-items:center;gap:8px;transition:transform .12s ease;
+}
+.btn:active{transform:scale(.97);}
+.btn-amber{background:var(--amber);color:var(--ink);}
+.btn-amber:hover{background:#eeb84e;}
+.btn-outline{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;}
+.btn-outline:hover{background:rgba(255,255,255,.08);}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:#256459;}
+.btn-ghost{background:transparent;color:var(--ink-2);border:1px solid var(--line);}
+.btn-ghost:hover{border-color:var(--teal);}
+.btn-danger{background:var(--red);color:#fff;}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+@media(max-width:760px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+.stat-card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:18px;}
+.stat-card .num{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--ink-2);}
+.stat-card .lbl{font-size:12px;color:var(--text-dim);margin-top:2px;}
+
+/* insight cards: progress donut + time estimate bars */
+.insight-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:14px;margin-bottom:26px;}
+@media(max-width:760px){.insight-grid{grid-template-columns:1fr;}}
+.insight-card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:18px 20px;}
+.insight-card h4{font-size:12.5px;color:var(--text-dim);font-weight:600;margin-bottom:14px;}
+.donut-wrap{display:flex;align-items:center;gap:18px;}
+.donut-legend{font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+.donut-legend .big{font-family:var(--font-display);font-size:22px;color:var(--ink-2);display:block;}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:12.5px;}
+.bar-row:last-child{margin-bottom:0;}
+.bar-row .bl{width:112px;flex-shrink:0;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.bar-row .bt{flex:1;background:var(--paper);border-radius:6px;height:15px;position:relative;overflow:hidden;}
+.bar-row .bf{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--teal),var(--amber));}
+.bar-row .bh{width:30px;text-align:right;color:var(--text-dim);flex-shrink:0;font-family:var(--font-mono);font-size:11px;}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:30px 0 14px;}
+.section-title h2{font-size:19px;}
+
+.roadmap-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:760px){.roadmap-grid{grid-template-columns:1fr;}}
+.rm-card{
+  background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:16px 16px 16px 14px;
+  display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:border-color .15s ease, box-shadow .15s ease;
+}
+.rm-card:hover{border-color:var(--teal);box-shadow:var(--shadow);}
+.rm-card.locked{cursor:not-allowed;opacity:.55;}
+.rm-card.locked:hover{border-color:var(--line);box-shadow:none;}
+.rm-card .badge{
+  width:32px;height:32px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:13px;font-weight:600;background:var(--paper);color:var(--text-dim);
+}
+.rm-card.done .badge{background:var(--teal);color:#fff;}
+.rm-card.current .badge{background:var(--amber);color:var(--ink);}
+.rm-card .t{font-weight:600;font-size:14px;color:var(--ink-2);}
+.rm-card .d{font-size:12.5px;color:var(--text-dim);margin-top:2px;}
+.rm-card .hrs{font-family:var(--font-mono);font-size:10.5px;color:var(--teal);margin-top:5px;display:inline-block;}
+
+/* =========================================================
+   STEP PAGE
+========================================================= */
+.step-header{margin-bottom:22px;}
+.step-header .crumbs{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.step-header h1{font-size:27px;letter-spacing:-.01em;}
+.step-header .why{
+  margin-top:12px;background:var(--teal-light);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;
+  padding:12px 16px;font-size:13.5px;color:#1E4941;
+}
+
+.card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:16px;}
+.card h3{font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.card ul{margin:0;padding-left:20px;}
+.card li{margin-bottom:6px;font-size:14px;}
+.card p{font-size:14px;color:var(--text);}
+
+.sub-item{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;overflow:hidden;}
+.sub-item summary{
+  list-style:none;cursor:pointer;padding:13px 16px;font-weight:600;font-size:14px;color:var(--ink-2);
+  display:flex;justify-content:space-between;align-items:center;background:#FAFBF8;
+}
+.sub-item summary::-webkit-details-marker{display:none;}
+.sub-item summary .chev{transition:transform .2s ease;font-size:12px;color:var(--text-dim);}
+.sub-item[open] summary .chev{transform:rotate(90deg);}
+.sub-item .sub-body{padding:4px 16px 16px;font-size:13.5px;}
+.sub-item .sub-body ul{padding-left:18px;}
+.sub-item .sub-body li{margin-bottom:5px;}
+
+.code-block{border-radius:10px;overflow:hidden;margin:10px 0 16px;border:1px solid #1c1c1c;}
+.code-head{
+  background:#1c1f1e;color:#c9d1cd;font-family:var(--font-mono);font-size:11.5px;
+  padding:8px 12px;display:flex;justify-content:space-between;align-items:center;
+}
+.code-head .lang{letter-spacing:.03em;text-transform:uppercase;color:#8FA79F;}
+.copy-btn{background:rgba(255,255,255,.08);border:none;color:#dfe7e3;padding:4px 9px;border-radius:5px;font-size:11px;font-family:var(--font-body);}
+.copy-btn:hover{background:rgba(255,255,255,.16);}
+.copy-btn.copied{background:var(--teal);color:#fff;}
+pre{margin:0;padding:14px;overflow-x:auto;font-size:12.8px;}
+pre code{font-family:var(--font-mono)!important;}
+
+.diagram{
+  background:#0F1E1D;color:#B9C9C3;border-radius:10px;padding:16px;font-family:var(--font-mono);
+  font-size:12.5px;white-space:pre;overflow-x:auto;line-height:1.5;margin:10px 0 16px;
+}
+
+.checklist{list-style:none;margin:0;padding:0;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+.checklist li:last-child{border:none;}
+.checklist input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0;}
+
+.quiz-box{background:#FAFBF8;border:1px dashed var(--line);border-radius:10px;padding:16px;}
+.quiz-box .q{font-weight:600;font-size:14px;margin-bottom:10px;}
+.quiz-opt{
+  display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;margin-bottom:8px;font-size:13.5px;color:var(--text);
+}
+.quiz-opt:hover{border-color:var(--teal);}
+.quiz-opt.correct{border-color:var(--teal);background:var(--teal-light);}
+.quiz-opt.wrong{border-color:var(--red);background:#FBEAE6;}
+.quiz-fb{font-size:13px;margin-top:8px;padding:10px 12px;border-radius:8px;}
+.quiz-fb.ok{background:var(--teal-light);color:#1E4941;}
+.quiz-fb.no{background:#FBEAE6;color:#7A3323;}
+
+.confirm-block{
+  margin-top:26px;background:var(--ink);color:var(--text-inv);border-radius:14px;padding:24px 26px;
+}
+.confirm-block h3{color:#fff;font-size:17px;margin-bottom:4px;}
+.confirm-block p{color:#9FB6AE;font-size:13.5px;margin-bottom:16px;}
+.confirm-actions{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* =========================================================
+   MODALS / TOASTS
+========================================================= */
+.overlay{position:fixed;inset:0;background:rgba(15,30,29,.55);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;}
+.overlay.show{display:flex;}
+.modal{background:#fff;border-radius:14px;max-width:440px;width:100%;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.modal h3{font-size:18px;margin-bottom:8px;}
+.modal p{font-size:14px;color:var(--text-dim);}
+.modal .modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.modal.wide{max-width:520px;}
+.modal textarea, .modal select, .modal input[type=text]{
+  width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13.5px;font-family:inherit;
+  margin-top:6px;resize:vertical;
+}
+.modal label{font-size:12.5px;font-weight:600;color:var(--ink-2);display:block;margin-top:14px;}
+.modal .success-icon{width:52px;height:52px;border-radius:50%;background:var(--teal-light);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:14px;}
+
+.toast-stack{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:10px;}
+@media(max-width:900px){.toast-stack{left:16px;right:16px;bottom:16px;}}
+.toast{
+  background:var(--ink);color:#fff;padding:13px 16px;border-radius:10px;font-size:13.5px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:10px;min-width:240px;animation:toastin .25s ease;
+}
+@keyframes toastin{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+/* =========================================================
+   DOUBTS / SETTINGS
+========================================================= */
+.doubt-card{background:var(--paper-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px;}
+.doubt-card .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.doubt-card .q{font-weight:600;font-size:14px;color:var(--ink-2);}
+.doubt-card .meta{font-size:11.5px;color:var(--text-dim);margin-top:4px;font-family:var(--font-mono);}
+.status-pill{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap;}
+.status-pill.open{background:#FDF1DD;color:var(--amber-dark);}
+.status-pill.resolved{background:var(--teal-light);color:var(--teal);}
+.doubt-card .actions{margin-top:10px;display:flex;gap:8px;}
+.mini-btn{font-size:12px;padding:6px 11px;border-radius:6px;border:1px solid var(--line);background:#fff;}
+.mini-btn:hover{border-color:var(--teal);}
+.empty-state{text-align:center;padding:50px 20px;color:var(--text-dim);}
+.empty-state .em{font-size:34px;margin-bottom:10px;}
+
+.settings-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);gap:14px;}
+.settings-row:last-child{border:none;}
+.settings-row .st{font-weight:600;font-size:14px;color:var(--ink-2);}
+.settings-row .sd{font-size:12.5px;color:var(--text-dim);margin-top:2px;}
+
+/* =========================================================
+   CERTIFICATE
+========================================================= */
+.cert-wrap{background:var(--paper-2);border:1px solid var(--line);border-radius:16px;padding:50px;text-align:center;position:relative;}
+.cert-wrap::before{content:"";position:absolute;inset:14px;border:1.5px solid var(--amber);border-radius:10px;pointer-events:none;}
+.cert-eyebrow{font-family:var(--font-mono);font-size:12px;color:var(--teal);letter-spacing:.04em;}
+.cert-title{font-size:26px;margin:14px 0 4px;}
+.cert-name{font-family:var(--font-display);font-size:32px;color:var(--amber-dark);margin:18px 0;border-bottom:2px solid var(--line);display:inline-block;padding-bottom:10px;min-width:280px;}
+.cert-body{color:var(--text-dim);font-size:14px;max-width:460px;margin:0 auto;}
+.cert-date{font-family:var(--font-mono);font-size:12px;color:var(--text-dim);margin-top:20px;}
+.cert-id{font-family:var(--font-mono);font-size:11px;color:var(--text-dim);margin-top:6px;}
+.cert-seal{width:64px;height:64px;margin:0 auto 6px;}
+@media print{
+  .sidebar,.topbar,.mobile-topbar,.no-print{display:none!important;}
+  .content{max-width:100%;padding:0;}
+}
+
+.fade-in{animation:fadein .3s ease;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* completion celebration */
+.celebrate{text-align:center;padding:40px 20px;}
+.celebrate .emoji{font-size:52px;}
+.celebrate h2{font-size:24px;margin:14px 0 6px;}
+.celebrate p{color:var(--text-dim);font-size:14px;}
+/* =========================================================
+   EDUCATIONAL VISUALS — embedded, offline-friendly SVGs
+========================================================= */
+.visual-learning{margin:20px 0 26px;}
+.visual-learning .visual-kicker{font-size:12px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;}
+.visual-card{background:linear-gradient(180deg,#ffffff 0%,#f8fbfa 100%);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 12px 32px rgba(20,46,42,.08);}
+.visual-card .visual-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:18px 20px 10px;}
+.visual-card .visual-head h3{margin:0;font-size:18px;}
+.visual-card .visual-head p{margin:5px 0 0;color:var(--ink-3);font-size:13px;line-height:1.55;}
+.visual-stage{padding:8px 18px 18px;}
+.visual-stage svg{display:block;width:100%;height:auto;max-height:430px;}
+.visual-caption{padding:0 20px 18px;color:var(--ink-3);font-size:13px;line-height:1.55;}
+.visual-caption strong{color:var(--ink-2);}
+.visual-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;background:#edf8f5;color:var(--teal);font-size:11px;font-weight:800;white-space:nowrap;}
+.visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.visual-mini{border:1px solid var(--line);border-radius:14px;background:white;padding:14px;}
+@media(max-width:760px){.visual-card .visual-head{flex-direction:column}.visual-grid{grid-template-columns:1fr}.visual-stage{padding:8px 10px 14px}}
+
+
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div class="toast-stack" id="toastStack"></div>
+
+<!-- ===================== MODALS ===================== -->
+<div class="overlay" id="confirmModal">
+  <div class="modal">
+    <h3>Confirm completion</h3>
+    <p>Are you sure you understand and completed this step? The next step will unlock immediately.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('confirmModal')">Go Back</button>
+      <button class="btn btn-teal" onclick="confirmCompleteStep()">Yes, Mark as Completed</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="successModal">
+  <div class="modal">
+    <div class="success-icon">🎉</div>
+    <h3 id="successTitle">Step completed!</h3>
+    <p id="successBody">Nice work — the next step is now unlocked.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('successModal')">Stay here</button>
+      <button class="btn btn-teal" id="successContinueBtn">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="doubtModal">
+  <div class="modal wide">
+    <h3>What are you stuck on?</h3>
+    <p>Write your question below. This is saved to "My Doubts" so you can track and revisit it — there's no live tutor answering yet.</p>
+    <label for="doubtTopic">Topic (optional)</label>
+    <select id="doubtTopic"></select>
+    <label for="doubtText">Your question</label>
+    <textarea id="doubtText" rows="4" placeholder="e.g. I don't understand the difference between Django and FastAPI."></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('doubtModal')">Cancel</button>
+      <button class="btn btn-amber" onclick="submitDoubt()">Submit doubt</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="doubtSuccessModal">
+  <div class="modal">
+    <div class="success-icon" style="background:#FDF1DD;color:var(--amber-dark);">❓</div>
+    <h3>Your doubt has been recorded</h3>
+    <p>You can find it any time under "My Doubts" in the sidebar.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="reviewStepBtn">Review Step Again</button>
+      <button class="btn btn-teal" id="continueLearningBtn">Continue Learning</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="resetModal">
+  <div class="modal">
+    <h3>Reset your progress?</h3>
+    <p>This will lock all steps again, clear completed steps, and reset your progress to 0%. Your doubts and profile will be kept.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('resetModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="doResetProgress()">Reset Progress</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   CONTENT DATA — sourced from the supplied roadmap document
+   (each step now carries an "hours" estimate for the time-to-
+   complete chart on the dashboard and step header)
+========================================================= */
+const roadmap = [
+{
+  id:1, title:"Planning & Requirements", icon:"📋", hours:2,
+  tagline:"Define what you're building and why — before writing a single line of code.",
+  why:"Every strong full-stack app starts with clarity, not code. Skipping this step is the #1 reason side projects stall halfway through — you build features nobody asked for and skip the ones you actually need.",
+  sections:[
+    {h:"What is this phase?", body:["This is where you define what you're building and why. It's the foundation of your entire project — everything downstream (architecture, database, screens) depends on the decisions you make here."]},
+    {h:"A. Define Project Scope", list:[
+      "What problem does your app solve?",
+      "Who are your users?",
+      "What are the core features?",
+      'Example: "Build a task management app for teams to track projects"'
+    ]},
+    {h:"B. Create User Stories", body:["Write stories from the user's perspective, using the format: \"As a [user type], I want [action], so that [benefit].\""],
+      list:[
+        "As a team member, I want to create tasks, so that I can organize work",
+        "As a manager, I want to assign tasks to team members, so that I can delegate work"
+      ]},
+    {h:"C. Define Features & Requirements", list:[
+      "Must-have features (MVP): Login, Create task, View tasks, Delete task",
+      "Nice-to-have features: Task priority, due dates, comments, notifications",
+      "Technical requirements: Security, scalability, performance"
+    ]},
+    {h:"D. Plan Database Entities", body:["What data do you actually need to store? For a task app, that's usually:"], list:[
+      "Users (name, email, password)",
+      "Projects (name, description, owner)",
+      "Tasks (title, description, status, assignee, due date)",
+      "Comments (text, author, timestamp)"
+    ]},
+    {h:"Tools to use", list:["Trello, Jira, or GitHub Projects for task management","Draw.io or Figma for mockups","Notion or Google Docs for documentation"]}
+  ],
+  checklist:[
+    "I can describe the problem my app solves in one sentence",
+    "I've written at least 3 user stories",
+    "I've separated must-have features from nice-to-have features",
+    "I've listed the core data entities my app will need"
+  ],
+  quiz:{q:"Which of these belongs in your MVP (must-have) feature list for a first version?",
+    options:["Push notifications","Dark mode theming","Login and creating a task","Task comment reactions"],
+    correct:2,
+    explain:"An MVP is the smallest usable version of your product. Login and creating a task are core to the app functioning at all — everything else can wait."}
+},
+{
+  id:2, title:"Architecture & Design", icon:"🏗️", hours:4,
+  tagline:"Choose your tech stack and decide how the pieces of your system talk to each other.",
+  why:"Changing your database or framework midway through a project is expensive. Getting the architecture right early means the rest of the build goes smoothly instead of fighting your own decisions.",
+  sections:[
+    {h:"A. Choose your backend framework", subitems:[
+      {t:"Django (full-featured)", body:"Pros: complete framework with built-in admin, ORM, and authentication. Best for: large projects, monoliths, rapid development. Cons: heavier, can be overkill for simple APIs.",
+        code:{lang:"Bash",text:`myproject/\n├── manage.py\n├── myproject/\n│   ├── settings.py\n│   ├── urls.py\n│   └── wsgi.py\n└── myapp/\n    ├── models.py\n    ├── views.py\n    ├── urls.py\n    └── serializers.py`}},
+      {t:"FastAPI (modern, fast)", body:"Pros: high performance, automatic API docs, async support. Best for: APIs, microservices, high-traffic apps. Cons: smaller ecosystem, needs separate tooling.",
+        code:{lang:"Bash",text:`my_api/\n├── main.py\n├── models.py\n├── database.py\n├── schemas.py\n└── routers/\n    ├── users.py\n    └── tasks.py`}},
+      {t:"Flask (lightweight)", body:"Pros: minimal, flexible, learning-friendly. Best for: small projects, custom solutions, learning. Cons: you install many extensions yourself, less built-in structure.",
+        code:{lang:"Bash",text:`app/\n├── app.py\n├── models.py\n├── routes/\n│   ├── auth.py\n│   └── tasks.py\n└── templates/`}}
+    ]},
+    {h:"Frontend framework options", list:["React — most popular, largest ecosystem","Vue — easier to learn, lighter weight","Vanilla JS — fine for simple projects"]},
+    {h:"Database options", list:["PostgreSQL — relational, powerful, great for structured data","MySQL — reliable, widely used","SQLite — good for development / small projects","MongoDB — NoSQL, for flexible schemas"]},
+    {h:"B. Design system architecture — the 3-tier model", diagram:`┌─────────────────────────────┐\n│   Frontend (React/Vue)      │\n│  (UI, User Interaction)     │\n└────────────┬────────────────┘\n             │ HTTP/REST API\n┌────────────▼────────────────┐\n│   Backend (Python)          │\n│  (Business Logic, APIs)     │\n└────────────┬────────────────┘\n             │ SQL Queries\n┌────────────▼────────────────┐\n│   Database                  │\n│  (PostgreSQL/MySQL)         │\n└─────────────────────────────┘`},
+    {h:"C. Design the database schema (ERD)", body:["Example for a task management app — each block below is a table, with its fields and relationships:"],
+      diagram:`USER\n├── id (Primary Key)\n├── email (Unique)\n├── username\n├── password (hashed)\n├── created_at\n\nPROJECT\n├── id (Primary Key)\n├── name\n├── description\n├── owner_id (Foreign Key → USER)\n├── created_at\n\nTASK\n├── id (Primary Key)\n├── title\n├── description\n├── status (todo, in_progress, done)\n├── priority (low, medium, high)\n├── project_id (Foreign Key → PROJECT)\n├── assignee_id (Foreign Key → USER)\n├── due_date\n├── created_at\n├── updated_at\n\nCOMMENT\n├── id (Primary Key)\n├── text\n├── task_id (Foreign Key → TASK)\n├── author_id (Foreign Key → USER)\n├── created_at`},
+    {h:"D. Design your API endpoints", diagram:`Authentication:\nPOST   /api/auth/register      - Register user\nPOST   /api/auth/login         - Login user\nPOST   /api/auth/logout        - Logout user\n\nProjects:\nGET    /api/projects           - List user's projects\nPOST   /api/projects           - Create new project\nGET    /api/projects/{id}      - Get project details\nPUT    /api/projects/{id}      - Update project\nDELETE /api/projects/{id}      - Delete project\n\nTasks:\nGET    /api/projects/{id}/tasks   - List tasks in project\nPOST   /api/projects/{id}/tasks   - Create task\nGET    /api/tasks/{id}             - Get task details\nPUT    /api/tasks/{id}             - Update task\nDELETE /api/tasks/{id}             - Delete task\nPOST   /api/tasks/{id}/assign      - Assign task to user`}
+  ],
+  checklist:[
+    "I understand the difference between frontend and backend",
+    "I understand what an API does",
+    "I understand what a database does",
+    "I understand the 3-tier architecture",
+    "I understand what an ER diagram represents"
+  ],
+  quiz:{q:"In the 3-tier architecture, what does the backend primarily handle?",
+    options:["Displaying the UI only","Business logic and APIs","Storing images only","Designing the database schema only"],
+    correct:1,
+    explain:"The backend sits between the frontend and the database — it runs business logic and exposes that logic to the frontend through APIs."}
+},
+{
+  id:3, title:"Setup Project Repository", icon:"📁", hours:1,
+  tagline:"Create your GitHub repo and lay out a clean, professional project structure.",
+  why:"A well-organized repo from day one saves hours later — especially once you have a backend, a frontend, and a growing team of collaborators (even if that team is just future-you).",
+  sections:[
+    {h:"A. Create a GitHub repository", list:["Go to GitHub.com and click \"New\"","Name it, e.g. task-management-app","Add a short description","Choose Public or Private","Initialize with a README"]},
+    {h:"B. Clone it locally", code:{lang:"Bash",text:`git clone https://github.com/yourusername/task-management-app.git\ncd task-management-app`}},
+    {h:"C. Create the project structure", diagram:`task-management-app/\n├── backend/                  # Python backend\n│   ├── venv/                # Virtual environment\n│   ├── requirements.txt      # Python dependencies\n│   ├── .env                 # Environment variables\n│   ├── .gitignore\n│   ├── config.py            # Configuration\n│   ├── models.py            # Database models\n│   ├── database.py          # Database setup\n│   ├── main.py              # Main app file (FastAPI)\n│   ├── routes/               # API routes\n│   ├── schemas/               # Data validation schemas\n│   ├── utils/                 # Utility functions\n│   └── tests/                 # Unit tests\n│\n├── frontend/                # React/Vue frontend\n│   ├── public/\n│   ├── src/\n│   │   ├── components/\n│   │   ├── pages/\n│   │   ├── services/\n│   │   ├── context/\n│   │   └── App.js\n│   ├── package.json\n│   └── .env\n│\n├── README.md\n├── .gitignore\n└── docker-compose.yml       # Optional`},
+    {h:"D. Create .gitignore", code:{lang:"Bash",text:`# Backend\nbackend/venv/\nbackend/__pycache__/\nbackend/.env\nbackend/*.pyc\nbackend/.pytest_cache/\n\n# Frontend\nfrontend/node_modules/\nfrontend/.env.local\nfrontend/build/\nfrontend/.DS_Store\n\n# IDE\n.vscode/\n.idea/\n*.swp`}},
+    {h:"E. Write a README.md", code:{lang:"Bash",text:`# Task Management App\n\n## Description\nA full-stack web application for managing tasks and projects in teams.\n\n## Tech Stack\n- Backend: FastAPI + Python\n- Frontend: React\n- Database: PostgreSQL\n\n## Setup Instructions\n\n### Backend Setup\ncd backend\npython -m venv venv\nsource venv/bin/activate  # Windows: venv\\Scripts\\activate\npip install -r requirements.txt\npython main.py\n\n### Frontend Setup\ncd frontend\nnpm install\nnpm start`}}
+  ],
+  checklist:["I have a GitHub repository created for my project","I've cloned it to my machine","My folder structure separates backend and frontend","I have a .gitignore that excludes venv/, node_modules/, and .env"],
+  quiz:{q:"Why should .env files be added to .gitignore?",
+    options:["They slow down git commands","They contain secrets like passwords/keys and shouldn't be shared publicly","GitHub doesn't support them","They're only used on Windows"],
+    correct:1,
+    explain:".env files typically hold secrets — database URLs, API keys, JWT secrets. Committing them would leak sensitive data to anyone with repo access."}
+},
+{
+  id:4, title:"Backend Development", icon:"🐍", hours:7,
+  tagline:"Build the API — models, schemas, authentication, and routes — using FastAPI.",
+  why:"The backend is the brain of your app: it enforces your business rules, talks to the database, and is the only thing the frontend is allowed to trust for real data.",
+  sections:[
+    {h:"A. Set up your Python environment", code:{lang:"Bash",text:`cd backend\npython -m venv venv\nsource venv/bin/activate  # Windows: venv\\Scripts\\activate`}},
+    {h:"B. Install dependencies", body:["Create a requirements.txt file:"],
+      code:{lang:"Bash",text:`fastapi==0.104.1\nuvicorn==0.24.0\nsqlalchemy==2.0.23\npsycopg2-binary==2.9.9\npydantic==2.5.0\npydantic-settings==2.1.0\npython-dotenv==1.0.0\npython-jose[cryptography]==3.3.0\npasslib[bcrypt]==1.7.4\npytest==7.4.3\npytest-asyncio==0.21.1`},
+      code2:{lang:"Bash",text:`pip install -r requirements.txt`}},
+    {h:"C. Set up the database connection", code:{lang:"Python",text:`from sqlalchemy import create_engine\nfrom sqlalchemy.ext.declarative import declarative_base\nfrom sqlalchemy.orm import sessionmaker\nfrom dotenv import load_dotenv\nimport os\n\nload_dotenv()\n\nDATABASE_URL = os.getenv("DATABASE_URL", "postgresql://user:password@localhost/taskdb")\n\nengine = create_engine(DATABASE_URL)\nSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)\nBase = declarative_base()\n\ndef get_db():\n    db = SessionLocal()\n    try:\n        yield db\n    finally:\n        db.close()`}},
+    {h:"D. Create database models", code:{lang:"Python",text:`from sqlalchemy import Column, Integer, String, DateTime, ForeignKey\nfrom sqlalchemy.orm import relationship\nfrom datetime import datetime\nfrom database import Base\n\nclass User(Base):\n    __tablename__ = "users"\n    id = Column(Integer, primary_key=True)\n    email = Column(String, unique=True, index=True)\n    username = Column(String, unique=True, index=True)\n    hashed_password = Column(String)\n    created_at = Column(DateTime, default=datetime.utcnow)\n\nclass Task(Base):\n    __tablename__ = "tasks"\n    id = Column(Integer, primary_key=True)\n    title = Column(String, index=True)\n    status = Column(String, default="todo")\n    priority = Column(String, default="medium")\n    project_id = Column(Integer, ForeignKey("projects.id"))\n    assignee_id = Column(Integer, ForeignKey("users.id"), nullable=True)\n    due_date = Column(DateTime, nullable=True)`}},
+    {h:"E. Create Pydantic schemas for validation", code:{lang:"Python",text:`from pydantic import BaseModel, EmailStr\nfrom datetime import datetime\nfrom typing import Optional\n\nclass UserRegister(BaseModel):\n    email: EmailStr\n    username: str\n    password: str\n\nclass TaskCreate(BaseModel):\n    title: str\n    description: Optional[str] = None\n    priority: str = "medium"\n    due_date: Optional[datetime] = None`}},
+    {h:"F. Add authentication (hashing + JWT)", code:{lang:"Python",text:`from passlib.context import CryptContext\nfrom datetime import datetime, timedelta\nfrom jose import jwt\nimport os\n\nSECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")\nALGORITHM = "HS256"\npwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")\n\ndef hash_password(password: str) -> str:\n    return pwd_context.hash(password)\n\ndef verify_password(plain, hashed) -> bool:\n    return pwd_context.verify(plain, hashed)\n\ndef create_access_token(data: dict, expires_delta=None):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))\n    to_encode.update({"exp": expire})\n    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)`}},
+    {h:"G. Build API routes", code:{lang:"Python",text:`from fastapi import APIRouter, Depends, HTTPException, status\nfrom sqlalchemy.orm import Session\nfrom database import get_db\nfrom models import User\nfrom schemas.user import UserRegister, UserResponse\nfrom utils.auth import hash_password\n\nrouter = APIRouter(prefix="/api/auth", tags=["auth"])\n\n@router.post("/register", response_model=UserResponse)\nasync def register(user: UserRegister, db: Session = Depends(get_db)):\n    existing = db.query(User).filter(User.email == user.email).first()\n    if existing:\n        raise HTTPException(status_code=400, detail="Email already registered")\n    new_user = User(email=user.email, username=user.username,\n                     hashed_password=hash_password(user.password))\n    db.add(new_user); db.commit(); db.refresh(new_user)\n    return new_user`}},
+    {h:"H. Wire it together in main.py", code:{lang:"Python",text:`from fastapi import FastAPI\nfrom fastapi.middleware.cors import CORSMiddleware\nfrom database import engine, Base\nfrom routes import auth, tasks\n\nBase.metadata.create_all(bind=engine)\napp = FastAPI(title="Task Management API")\n\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=["http://localhost:3000"],\n    allow_credentials=True,\n    allow_methods=["*"],\n    allow_headers=["*"],\n)\n\napp.include_router(auth.router)\napp.include_router(tasks.router)\n\n@app.get("/")\nasync def root():\n    return {"message": "Task Management API is running"}`}},
+    {h:"I. Write unit tests", code:{lang:"Python",text:`from fastapi.testclient import TestClient\nfrom main import app\n\nclient = TestClient(app)\n\ndef test_register_user():\n    response = client.post("/api/auth/register", json={\n        "email": "test@example.com",\n        "username": "testuser",\n        "password": "password123"\n    })\n    assert response.status_code == 200\n    assert response.json()["email"] == "test@example.com"`}}
+  ],
+  checklist:["I've created a virtual environment and installed dependencies","I understand what an ORM model represents","I understand why passwords are hashed, never stored in plain text","I understand what a JWT token is used for","I can explain what each API route in main.py does"],
+  quiz:{q:"Why do we hash passwords with something like bcrypt instead of storing them directly?",
+    options:["Hashing makes the database smaller","If the database is ever leaked, raw passwords aren't exposed","It makes login faster","It's required by React"],
+    correct:1,
+    explain:"Hashing is one-way — even if your database is compromised, attackers can't easily recover the original passwords, protecting your users."}
+},
+{
+  id:5, title:"Frontend Development", icon:"⚛️", hours:6,
+  tagline:"Build the React UI — components, pages, API calls, and protected routes.",
+  why:"The frontend is what your users actually see and touch. It needs to talk to your backend cleanly, handle auth state, and stay usable even when things go wrong (loading, errors, empty states).",
+  sections:[
+    {h:"A. Set up the React project", code:{lang:"Bash",text:`npx create-react-app frontend\ncd frontend\nnpm install axios react-router-dom`}},
+    {h:"B. Folder structure", diagram:`src/\n├── components/        # Reusable components\n│   ├── TaskForm.jsx\n│   ├── TaskCard.jsx\n│   └── Header.jsx\n├── pages/            # Page components\n│   ├── LoginPage.jsx\n│   ├── RegisterPage.jsx\n│   └── DashboardPage.jsx\n├── services/         # API calls\n│   └── api.js\n├── context/          # State management\n│   └── AuthContext.js\n├── App.js\n└── index.js`},
+    {h:"C. Create the API service layer", code:{lang:"JavaScript",text:`import axios from 'axios';\n\nconst api = axios.create({\n  baseURL: 'http://localhost:8000/api',\n  headers: { 'Content-Type': 'application/json' },\n});\n\napi.interceptors.request.use((config) => {\n  const token = localStorage.getItem('access_token');\n  if (token) config.headers.Authorization = \`Bearer \${token}\`;\n  return config;\n});\n\nexport const authAPI = {\n  register: (email, username, password) =>\n    api.post('/auth/register', { email, username, password }),\n  login: (email, password) =>\n    api.post('/auth/login', { email, password }),\n};\n\nexport const tasksAPI = {\n  getTasks: (projectId) => api.get(\`/projects/\${projectId}/tasks\`),\n  createTask: (projectId, data) => api.post(\`/projects/\${projectId}/tasks\`, data),\n  updateTask: (taskId, data) => api.put(\`/tasks/\${taskId}\`, data),\n  deleteTask: (taskId) => api.delete(\`/tasks/\${taskId}\`),\n};`}},
+    {h:"D. Build an authentication context", code:{lang:"JavaScript",text:`import React, { createContext, useState, useContext } from 'react';\nimport { authAPI } from '../services/api';\n\nconst AuthContext = createContext();\n\nexport const AuthProvider = ({ children }) => {\n  const [token, setToken] = useState(localStorage.getItem('access_token'));\n\n  const login = async (email, password) => {\n    const res = await authAPI.login(email, password);\n    localStorage.setItem('access_token', res.data.access_token);\n    setToken(res.data.access_token);\n  };\n\n  const logout = () => {\n    localStorage.removeItem('access_token');\n    setToken(null);\n  };\n\n  return (\n    <AuthContext.Provider value={{ token, login, logout, isAuthenticated: !!token }}>\n      {children}\n    </AuthContext.Provider>\n  );\n};\n\nexport const useAuth = () => useContext(AuthContext);`}},
+    {h:"E. Build a reusable TaskCard component", code:{lang:"JavaScript",text:`const TaskCard = ({ task, onTaskDeleted, onTaskUpdated }) => {\n  const handleDelete = async () => {\n    if (window.confirm('Are you sure?')) {\n      await tasksAPI.deleteTask(task.id);\n      onTaskDeleted(task.id);\n    }\n  };\n\n  return (\n    <div className="task-card">\n      <h3>{task.title}</h3>\n      <p>{task.description}</p>\n      <p>Priority: <strong>{task.priority}</strong></p>\n      <button onClick={handleDelete}>Delete</button>\n    </div>\n  );\n};`}},
+    {h:"F. Protect routes with a wrapper", code:{lang:"JavaScript",text:`import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';\nimport { AuthProvider, useAuth } from './context/AuthContext';\n\nconst ProtectedRoute = ({ children }) => {\n  const { isAuthenticated } = useAuth();\n  return isAuthenticated ? children : <Navigate to="/login" />;\n};\n\nfunction App() {\n  return (\n    <AuthProvider>\n      <BrowserRouter>\n        <Routes>\n          <Route path="/login" element={<LoginPage />} />\n          <Route path="/dashboard" element={\n            <ProtectedRoute><DashboardPage /></ProtectedRoute>\n          } />\n        </Routes>\n      </BrowserRouter>\n    </AuthProvider>\n  );\n}`}}
+  ],
+  checklist:["I understand what a React component is","I understand why API calls are separated into a services file","I understand what the AuthContext is doing","I understand how a protected route blocks unauthenticated users"],
+  quiz:{q:"What's the purpose of the axios interceptor in the API service?",
+    options:["It slows down requests intentionally","It automatically attaches the JWT token to every outgoing request","It blocks all POST requests","It converts JSON to XML"],
+    correct:1,
+    explain:"The interceptor runs before every request and adds the stored access token to the Authorization header, so you don't have to do it manually each time."}
+},
+{
+  id:6, title:"Database Setup", icon:"🗄️", hours:2,
+  tagline:"Create the database, generate tables from your models, and seed it with sample data.",
+  why:"Your models are just Python code until a real database exists to store them in. This step turns your schema design into a working, queryable database.",
+  sections:[
+    {h:"A. Create the database", code:{lang:"Bash",text:`# Using PostgreSQL\npsql -U postgres\nCREATE DATABASE taskdb;`}},
+    {h:"B. Create tables (migrations)", body:["With FastAPI + SQLAlchemy, this happens automatically when you run main.py:"],
+      code:{lang:"Python",text:`Base.metadata.create_all(bind=engine)`},
+      body2:["If you're using Django instead:"],
+      code2:{lang:"Bash",text:`python manage.py makemigrations\npython manage.py migrate`}},
+    {h:"C. Seed sample data (optional)", code:{lang:"Python",text:`from database import SessionLocal\nfrom models import User, Project\nfrom utils.auth import hash_password\n\ndef seed_data():\n    db = SessionLocal()\n    user = User(email="john@example.com", username="john",\n                hashed_password=hash_password("password123"))\n    db.add(user); db.commit(); db.refresh(user)\n\n    project = Project(name="Website Redesign",\n                       description="Redesign company website",\n                       owner_id=user.id)\n    db.add(project); db.commit()\n    print("✅ Seed data created!")\n\nif __name__ == "__main__":\n    seed_data()`},
+      code2:{lang:"Bash",text:`python seed.py`}}
+  ],
+  checklist:["I've created my database","I understand what a migration does","I've run my app and confirmed the tables were created","I understand what seed data is for"],
+  quiz:{q:"What does Base.metadata.create_all(bind=engine) actually do?",
+    options:["Deletes all existing tables","Creates database tables based on your SQLAlchemy models","Starts the FastAPI server","Encrypts the database"],
+    correct:1,
+    explain:"It inspects every model that inherits from Base and creates a matching table in the database if one doesn't already exist."}
+},
+{
+  id:7, title:"Integration & Testing", icon:"✅", hours:3,
+  tagline:"Connect frontend to backend and verify the whole flow actually works end to end.",
+  why:"Code that works in isolation can still fail once pieces are connected — CORS issues, mismatched field names, or broken auth flows only show up once you integrate and test for real.",
+  sections:[
+    {h:"A. Test backend APIs directly", body:["Use a tool like Postman or Insomnia to hit your endpoints before connecting the frontend:"],
+      diagram:`POST http://localhost:8000/api/auth/register\nBody: {\n  "email": "test@example.com",\n  "username": "testuser",\n  "password": "password123"\n}\n\nPOST http://localhost:8000/api/auth/login\nBody: {\n  "email": "test@example.com",\n  "password": "password123"\n}\n\nGET http://localhost:8000/api/projects/1/tasks\nHeaders: { "Authorization": "Bearer <token>" }`},
+    {h:"B. Run your unit tests", code:{lang:"Bash",text:`# Backend\ncd backend\npytest\n\n# Frontend\ncd frontend\nnpm test`}},
+    {h:"C. Test the end-to-end workflow", list:["Register a new user","Log in","Create a project","Create tasks","Update task status","Delete a task"]}
+  ],
+  checklist:["I've tested my API endpoints with Postman or Insomnia","I've run my backend unit tests","I've connected frontend and backend and logged in successfully","I've walked through the full user workflow at least once"],
+  quiz:{q:"Why test API endpoints directly with Postman before wiring up the frontend?",
+    options:["Postman is required by FastAPI","It isolates backend bugs from frontend bugs, so you know which side is broken","It automatically writes your frontend code","It replaces unit tests"],
+    correct:1,
+    explain:"Testing the API in isolation confirms the backend works correctly on its own, so if something breaks after connecting the frontend, you know to look at the integration layer, not the API logic."}
+},
+{
+  id:8, title:"Deployment", icon:"🚀", hours:3,
+  tagline:"Ship your backend, frontend, and database to the real internet.",
+  why:"An app running only on your laptop isn't a product yet. Deployment is what turns your project into something real people can actually use.",
+  sections:[
+    {h:"A. Deploy the backend (example: FastAPI on Heroku)", code:{lang:"Bash",text:`SECRET_KEY=your-secret-key\nDATABASE_URL=postgresql://user:pass@localhost/taskdb`},
+      body:["That goes in your .env file. Then create a Procfile:"],
+      code2:{lang:"Bash",text:`web: uvicorn main:app --host 0.0.0.0 --port $PORT`},
+      body2:["Then deploy:"],
+      code3:{lang:"Bash",text:`heroku login\nheroku create task-management-api\ngit push heroku main\nheroku config:set DATABASE_URL=<postgresql-url>`}},
+    {h:"B. Deploy the frontend (example: React on Netlify)", code:{lang:"Bash",text:`npm run build\n# Deploy the build/ folder to Netlify`}},
+    {h:"C. Set up a managed database", list:["AWS RDS","Heroku Postgres","DigitalOcean Managed Databases"]}
+  ],
+  checklist:["I understand what environment variables are and why they aren't hardcoded","I understand what a Procfile tells the hosting platform to do","I've deployed (or dry-run deployed) my backend","I've built and deployed my frontend"],
+  quiz:{q:"Why keep secrets like SECRET_KEY in environment variables instead of hardcoding them in main.py?",
+    options:["Hardcoding is faster at runtime","Environment variables keep secrets out of your source code and version control","Python requires env vars to run","It makes the app deploy faster"],
+    correct:1,
+    explain:"If secrets are hardcoded, they end up committed to Git and exposed to anyone with repo access. Environment variables keep them outside your codebase entirely."}
+},
+{
+  id:9, title:"Launch & Maintenance", icon:"📊", hours:2,
+  tagline:"Your app is live — now keep it healthy, secure, and improving.",
+  why:"Launch isn't the finish line. Real apps need ongoing monitoring, bug fixes, and updates — this is where a project turns into a genuinely production-ready application.",
+  sections:[
+    {h:"A. Monitoring", list:["Set up error logging (e.g. Sentry)","Monitor performance (e.g. New Relic)","Check database health regularly"]},
+    {h:"B. User feedback", list:["Gather feedback from real users","Fix bugs as they're reported","Plan improvements based on usage patterns"]},
+    {h:"C. Regular maintenance", list:["Update dependencies","Apply security patches","Take regular database backups"]}
+  ],
+  checklist:["I understand why error logging matters after launch","I have a plan for collecting user feedback","I understand why dependencies need regular updates","I understand why database backups are essential"],
+  quiz:{q:"Why keep taking regular database backups even after your app is stable?",
+    options:["Backups make the app run faster","They protect you against data loss from bugs, attacks, or hardware failure","They're only needed during development","PostgreSQL requires them to function"],
+    correct:1,
+    explain:"No system is failure-proof. Regular backups mean a bad deploy, attack, or hardware failure doesn't mean permanently losing your users' data."}
+}
+];
+
+/* =========================================================
+   STATE MANAGEMENT
+========================================================= */
+const STORAGE_KEY = 'pyRoadmapState_v2';
+
+function defaultState(){
+  return { completedSteps:[], currentStep:1, doubts:[], quizDone:{}, learnerName:'', profile:null };
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed);
+  }catch(e){
+    console.error('State load failed, resetting', e);
+    return defaultState();
+  }
+}
+
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch(e){ console.error('State save failed', e); toast('⚠️ Could not save progress locally'); }
+}
+
+let state = loadState();
+let route = { name:'dashboard', stepId:null };
+let pendingCompleteStep = null;
+let doubtContextStep = null;
+let pendingDoubtStepAfter = null;
+
+function isUnlocked(stepId){ return stepId === 1 || state.completedSteps.includes(stepId-1); }
+function isCompleted(stepId){ return state.completedSteps.includes(stepId); }
+function progressPct(){ return Math.round((state.completedSteps.length / roadmap.length) * 100); }
+function currentUnlockedStep(){
+  for(const s of roadmap){ if(!isCompleted(s.id)) return s.id; }
+  return roadmap.length;
+}
+function totalHours(){ return roadmap.reduce((a,s)=>a+(s.hours||0),0); }
+function totalHoursDone(){ return roadmap.filter(s=>isCompleted(s.id)).reduce((a,s)=>a+(s.hours||0),0); }
+
+/* =========================================================
+   LOGIN / PROFILE (client-side only — no server, no password.
+   This simply personalizes the experience and the certificate,
+   and everything still lives in this browser's storage.)
+========================================================= */
+const AVATAR_OPTS = ['🦉','🐙','🦊','🐢','🐝','🦄'];
+let loginAvatar = AVATAR_OPTS[0];
+
+function pickAvatar(a){ loginAvatar = a; renderLoginAvatars(); }
+function renderLoginAvatars(){
+  const row = document.getElementById('avatarRow');
+  if(!row) return;
+  row.innerHTML = AVATAR_OPTS.map(a=>`<button type="button" class="avatar-opt ${a===loginAvatar?'selected':''}" onclick="pickAvatar('${a}')">${a}</button>`).join('');
+}
+
+function submitLogin(){
+  const name = document.getElementById('loginName').value.trim();
+  const email = document.getElementById('loginEmail').value.trim();
+  if(!name){ toast('Please enter your name to continue'); return; }
+  state.profile = { name, email, avatar: loginAvatar, joinedAt: new Date().toISOString() };
+  saveState();
+  route = { name:'dashboard', stepId:null };
+  render();
+}
+
+function signOut(){
+  state.profile = null;
+  saveState();
+  route = { name:'login', stepId:null };
+  render();
+}
+
+function initials(name){
+  return (name||'').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+}
+
+function renderLogin(){
+  return `
+  <div class="login-screen">
+    <div class="login-shell">
+      <div class="login-pitch">
+        <div class="eyebrow">// python full-stack roadmap</div>
+        <h1>Learn to ship a real Python full-stack app.</h1>
+        <p>Nine guided steps from planning to launch, with visual explanations, code you can copy, and a certificate when you finish.</p>
+        <div class="pitch-stats">
+          <div>${roadmap.length}<span>Steps</span></div>
+          <div>${totalHours()}h<span>Estimated time</span></div>
+          <div>${roadmap.length}<span>Quizzes</span></div>
+        </div>
+      </div>
+      <div class="login-card">
+        <div class="login-mark">&gt;_</div>
+        <h2>Start your roadmap</h2>
+        <div class="sub">Set up a learner profile so your progress and certificate carry your name.</div>
+        <div class="login-field">
+          <label for="loginName">Your name</label>
+          <input id="loginName" type="text" placeholder="e.g. Priya Sharma" onkeydown="if(event.key==='Enter')submitLogin()">
+        </div>
+        <div class="login-field">
+          <label for="loginEmail">Email (optional)</label>
+          <input id="loginEmail" type="email" placeholder="you@example.com" onkeydown="if(event.key==='Enter')submitLogin()">
+        </div>
+        <div class="login-field">
+          <label>Pick an avatar</label>
+          <div class="avatar-row" id="avatarRow"></div>
+        </div>
+        <button class="btn btn-amber" style="width:100%;justify-content:center;" onclick="submitLogin()">Continue to roadmap →</button>
+        <div class="login-note">This is a lightweight, local profile — no password, no server. Everything (your name, progress and certificate) is stored only in this browser via localStorage.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* =========================================================
+   ROUTER
+========================================================= */
+function navigate(name, stepId){
+  route = { name, stepId: stepId || null };
+  closeSidebarMobile();
+  window.scrollTo(0,0);
+  render();
+}
+
+/* =========================================================
+   TOASTS
+========================================================= */
+function toast(msg, ms=3200){
+  const stack = document.getElementById('toastStack');
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = `<span>${msg}</span>`;
+  stack.appendChild(el);
+  setTimeout(()=>{ el.style.opacity='0'; el.style.transition='opacity .25s'; setTimeout(()=>el.remove(),250); }, ms);
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+function openModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+
+function askCompleteStep(stepId){
+  pendingCompleteStep = stepId;
+  openModal('confirmModal');
+}
+
+function confirmCompleteStep(){
+  closeModal('confirmModal');
+  const stepId = pendingCompleteStep;
+  if(stepId == null) return;
+  if(!state.completedSteps.includes(stepId)){
+    state.completedSteps.push(stepId);
+    state.currentStep = Math.min(stepId+1, roadmap.length);
+    saveState();
+  }
+  const isLast = stepId === roadmap.length;
+  const nextStep = roadmap.find(s=>s.id===stepId+1);
+  document.getElementById('successTitle').textContent = isLast ? '🎉 Roadmap complete!' : `🎉 Step ${stepId} completed!`;
+  document.getElementById('successBody').textContent = isLast
+    ? `You've finished all ${roadmap.length} steps. Your certificate is ready.`
+    : `Step ${stepId+1} — ${nextStep.title} is now unlocked.`;
+  const btn = document.getElementById('successContinueBtn');
+  btn.textContent = isLast ? 'View certificate →' : `Continue to Step ${stepId+1} →`;
+  btn.onclick = ()=>{
+    closeModal('successModal');
+    if(isLast) navigate('certificate'); else navigate('step', stepId+1);
+  };
+  openModal('successModal');
+}
+
+function openDoubtModal(stepId){
+  doubtContextStep = stepId;
+  const sel = document.getElementById('doubtTopic');
+  sel.innerHTML = '<option value="">General / not sure</option>' +
+    roadmap.map(s=>`<option value="${s.title}">${s.title}</option>`).join('');
+  if(stepId){ const s = roadmap.find(r=>r.id===stepId); if(s) sel.value = s.title; }
+  document.getElementById('doubtText').value='';
+  openModal('doubtModal');
+}
+
+function submitDoubt(){
+  const text = document.getElementById('doubtText').value.trim();
+  if(!text){ toast('Please write your question first'); return; }
+  const topic = document.getElementById('doubtTopic').value;
+  const stepObj = doubtContextStep ? roadmap.find(s=>s.id===doubtContextStep) : null;
+  state.doubts.unshift({
+    id: Date.now(),
+    text, topic: topic || (stepObj ? stepObj.title : 'General'),
+    step: stepObj ? stepObj.title : (topic || 'General'),
+    status:'open',
+    date: new Date().toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})
+  });
+  saveState();
+  closeModal('doubtModal');
+  pendingDoubtStepAfter = doubtContextStep;
+  openModal('doubtSuccessModal');
+}
+
+document.getElementById('reviewStepBtn').onclick = ()=>{
+  closeModal('doubtSuccessModal');
+  if(pendingDoubtStepAfter) navigate('step', pendingDoubtStepAfter); else render();
+};
+document.getElementById('continueLearningBtn').onclick = ()=>{
+  closeModal('doubtSuccessModal');
+  render();
+};
+
+function resolveDoubt(id){
+  const d = state.doubts.find(x=>x.id===id);
+  if(d){ d.status = 'resolved'; saveState(); render(); toast('Doubt marked as resolved'); }
+}
+
+function askReset(){ openModal('resetModal'); }
+function doResetProgress(){
+  const doubts = state.doubts;
+  const profile = state.profile;
+  state = defaultState();
+  state.doubts = doubts;
+  state.profile = profile;
+  saveState();
+  closeModal('resetModal');
+  toast('Progress reset — Step 1 is unlocked, the rest are locked');
+  navigate('dashboard');
+}
+
+/* =========================================================
+   QUIZ HANDLING
+========================================================= */
+function answerQuiz(stepId, chosenIdx){
+  const step = roadmap.find(s=>s.id===stepId);
+  const opts = document.querySelectorAll(`#quiz-${stepId} .quiz-opt`);
+  opts.forEach((el,i)=>{
+    el.disabled = true;
+    if(i===step.quiz.correct) el.classList.add('correct');
+    else if(i===chosenIdx) el.classList.add('wrong');
+  });
+  const fb = document.getElementById(`quizfb-${stepId}`);
+  const correct = chosenIdx === step.quiz.correct;
+  fb.style.display='block';
+  fb.className = 'quiz-fb ' + (correct ? 'ok':'no');
+  fb.innerHTML = (correct ? '✅ Correct. ' : '❌ Not quite. ') + step.quiz.explain +
+    (correct ? '' : '<div style="margin-top:8px;"><button class="mini-btn" onclick="retryQuiz('+stepId+')">Try again</button></div>');
+  if(correct){ state.quizDone[stepId]=true; saveState(); }
+}
+function retryQuiz(stepId){
+  renderStepQuizArea(stepId);
+}
+function renderStepQuizArea(stepId){
+  const holder = document.getElementById(`quiz-holder-${stepId}`);
+  if(holder) holder.innerHTML = quizHTML(roadmap.find(s=>s.id===stepId));
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+function buildSearchIndex(){
+  const idx = [];
+  roadmap.forEach(step=>{
+    step.sections.forEach(sec=>{
+      idx.push({ stepId: step.id, stepTitle: step.title, heading: sec.h || step.title, snippet:(sec.body||[]).join(' ').slice(0,90) });
+      (sec.subitems||[]).forEach(si=>{
+        idx.push({ stepId: step.id, stepTitle: step.title, heading: si.t, snippet:(si.body||'').slice(0,90) });
+      });
+    });
+  });
+  return idx;
+}
+const searchIndex = buildSearchIndex();
+
+function handleSearchInput(val){
+  const box = document.getElementById('searchResults');
+  if(!val.trim()){ box.style.display='none'; box.innerHTML=''; return; }
+  const q = val.toLowerCase();
+  const matches = searchIndex.filter(item =>
+    item.heading.toLowerCase().includes(q) || item.stepTitle.toLowerCase().includes(q) || item.snippet.toLowerCase().includes(q)
+  ).slice(0,8);
+  if(matches.length===0){
+    box.innerHTML = `<div class="sr-empty">No matches for "${escapeHtml(val)}"</div>`;
+  } else {
+    box.innerHTML = matches.map(m=>{
+      const locked = !isUnlocked(m.stepId);
+      if(locked){
+        return `<div class="sr-item" style="opacity:.65;cursor:default;">
+          <div class="sr-title">🔒 ${escapeHtml(m.heading)}</div>
+          <div class="sr-meta">This topic is available after completing Step ${m.stepId-1}.</div>
+        </div>`;
+      }
+      return `<div class="sr-item" onclick="goFromSearch(${m.stepId})">
+        <div class="sr-title">${escapeHtml(m.heading)}</div>
+        <div class="sr-meta">Step ${m.stepId} · ${escapeHtml(m.stepTitle)}</div>
+      </div>`;
+    }).join('');
+  }
+  box.style.display='block';
+}
+function goFromSearch(stepId){
+  document.getElementById('searchResults').style.display='none';
+  document.getElementById('searchInput').value='';
+  navigate('step', stepId);
+}
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+/* =========================================================
+   SIDEBAR / MOBILE
+========================================================= */
+function toggleSidebarMobile(){
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.querySelector('.sidebar-scrim').classList.toggle('show');
+}
+function closeSidebarMobile(){
+  const sb = document.querySelector('.sidebar');
+  const sc = document.querySelector('.sidebar-scrim');
+  if(sb){ sb.classList.remove('open'); }
+  if(sc){ sc.classList.remove('show'); }
+}
+
+/* =========================================================
+   RENDER: SHELL
+========================================================= */
+function render(){
+  const app = document.getElementById('app');
+
+  if(!state.profile){
+    app.innerHTML = renderLogin();
+    setTimeout(renderLoginAvatars, 0);
+    return;
+  }
+
+  app.innerHTML = `
+    <div class="sidebar-scrim" onclick="closeSidebarMobile()"></div>
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="mark">&gt;_</div>
+        <div>
+          <div class="name">Full Stack Trail</div>
+          <div class="sub">PYTHON ROADMAP</div>
+        </div>
+      </div>
+      <div class="profile-block">
+        <div class="profile-avatar">${state.profile.avatar || '🙂'}</div>
+        <div>
+          <div class="profile-name">${escapeHtml(state.profile.name)}</div>
+          ${state.profile.email ? `<div class="profile-email">${escapeHtml(state.profile.email)}</div>` : ''}
+        </div>
+      </div>
+      <div class="sidebar-progress">
+        <div class="label"><span>Overall progress</span><span class="pct">${progressPct()}%</span></div>
+        <div class="track"><div class="fill" style="width:${progressPct()}%"></div></div>
+      </div>
+      <ul class="nav-list">
+        ${roadmap.map(s=>sidebarItem(s)).join('')}
+      </ul>
+      <div class="sidebar-footer">
+        <div class="nav-item ${route.name==='doubts'?'current':''}" onclick="navigate('doubts')">
+          <span class="num" style="background:transparent;">❓</span>
+          <span class="label">My Doubts</span>
+          ${state.doubts.length? `<span class="icon-check" style="background:var(--amber);color:var(--ink);border-radius:20px;padding:1px 7px;font-family:var(--font-mono);font-size:10.5px;">${state.doubts.length}</span>`:''}
+        </div>
+        <div class="nav-item ${route.name==='settings'?'current':''}" onclick="navigate('settings')">
+          <span class="num" style="background:transparent;">⚙️</span>
+          <span class="label">Settings</span>
+        </div>
+        <div class="nav-item" onclick="signOut()">
+          <span class="num" style="background:transparent;">↩</span>
+          <span class="label">Sign out</span>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main">
+      <div class="mobile-topbar">
+        <button class="hamburger" onclick="toggleSidebarMobile()">☰</button>
+        <span class="name">Full Stack Trail</span>
+        <span class="step-tag">${progressPct()}%</span>
+      </div>
+      <div class="topbar">
+        <div class="search-wrap">
+          <span class="sic">🔍</span>
+          <input id="searchInput" type="text" placeholder="Search the roadmap… (FastAPI, JWT, PostgreSQL…)"
+                 oninput="handleSearchInput(this.value)" onfocus="handleSearchInput(this.value)">
+          <div class="search-results" id="searchResults"></div>
+        </div>
+        <div class="topbar-actions">
+          <button class="tb-btn" onclick="navigate('dashboard')">🏠 Dashboard</button>
+          <button class="tb-btn primary" onclick="navigate('step', ${currentUnlockedStep()})">Continue →</button>
+        </div>
+      </div>
+      <div class="content fade-in" id="contentArea">
+        ${renderRoute()}
+      </div>
+    </div>
+  `;
+  document.addEventListener('click', hideSearchOnOutsideClick, {once:true});
+  hljs.highlightAll();
+}
+
+function hideSearchOnOutsideClick(e){
+  const wrap = document.querySelector('.search-wrap');
+  if(wrap && !wrap.contains(e.target)){
+    const box = document.getElementById('searchResults');
+    if(box) box.style.display='none';
+  }
+  document.addEventListener('click', hideSearchOnOutsideClick, {once:true});
+}
+
+function sidebarItem(s){
+  const unlocked = isUnlocked(s.id);
+  const done = isCompleted(s.id);
+  const current = route.name==='step' && route.stepId===s.id;
+  const isNextUp = !done && unlocked && !current && s.id===currentUnlockedStep();
+  let cls = 'nav-item';
+  if(!unlocked) cls += ' locked';
+  if(done) cls += ' done';
+  if(current || isNextUp) cls += ' current';
+  const numContent = done ? '✓' : String(s.id).padStart(2,'0');
+  return `<li class="${cls}" onclick="${unlocked? `navigate('step', ${s.id})` : `lockedClick(${s.id})`}">
+    <span class="num">${numContent}</span>
+    <span class="label">${escapeHtml(s.title)}</span>
+    ${!unlocked ? '<span class="icon-lock">🔒</span>' : ''}
+  </li>`;
+}
+function lockedClick(stepId){
+  toast(`🔒 Complete Step ${stepId-1} first to unlock this.`);
+}
+
+/* =========================================================
+   RENDER: ROUTES
+========================================================= */
+function renderRoute(){
+  if(route.name==='dashboard') return renderDashboard();
+  if(route.name==='step') return renderStep(route.stepId);
+  if(route.name==='doubts') return renderDoubts();
+  if(route.name==='settings') return renderSettings();
+  if(route.name==='certificate') return renderCertificate();
+  return renderDashboard();
+}
+
+/* ---------- DASHBOARD VISUALS: hero mockup, donut, bars ---------- */
+function heroMockSVG(){
+  return `<svg viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview of the roadmap app dashboard">
+    <rect x="3" y="3" width="254" height="294" rx="16" fill="#0B1615"/>
+    <rect x="3" y="3" width="254" height="28" rx="16" fill="#16302D"/>
+    <circle cx="18" cy="17" r="3.6" fill="#E2A83A"/><circle cx="29" cy="17" r="3.6" fill="#2F7A6E"/><circle cx="40" cy="17" r="3.6" fill="#5B6E67"/>
+    <rect x="18" y="42" width="104" height="12" rx="4" fill="#EAF1EC"/>
+    <rect x="18" y="62" width="224" height="42" rx="9" fill="#1E3B36"/>
+    <rect x="30" y="72" width="112" height="9" rx="3" fill="#DCEFE9"/>
+    <rect x="30" y="86" width="78" height="7" rx="3" fill="#8FA79F"/>
+    <rect x="18" y="114" width="70" height="52" rx="9" fill="#E2A83A"/>
+    <text x="53" y="145" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" fill="#16302D">9</text>
+    <rect x="94" y="114" width="70" height="52" rx="9" fill="#2F7A6E"/>
+    <text x="129" y="145" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" fill="#fff">30h</text>
+    <rect x="170" y="114" width="72" height="52" rx="9" fill="#3B6E8F"/>
+    <text x="206" y="145" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="16" font-weight="700" fill="#fff">✓</text>
+    <rect x="18" y="178" width="224" height="104" rx="10" fill="#122522"/>
+    <rect x="30" y="192" width="120" height="9" rx="3" fill="#DCEFE9"/>
+    <rect x="30" y="212" width="200" height="1" fill="#274743"/>
+    <rect x="30" y="226" width="160" height="7" rx="3" fill="#8FA79F"/>
+    <rect x="30" y="242" width="160" height="7" rx="3" fill="#8FA79F"/>
+    <rect x="30" y="258" width="104" height="7" rx="3" fill="#8FA79F"/>
+    <circle cx="205" cy="255" r="16" fill="none" stroke="#274743" stroke-width="4"/>
+    <circle cx="205" cy="255" r="16" fill="none" stroke="#E2A83A" stroke-width="4" stroke-dasharray="70 100" transform="rotate(-90 205 255)"/>
+  </svg>`;
+}
+
+function donutSVG(pct){
+  const r = 40, c = 2*Math.PI*r;
+  const dash = Math.max(0.001,(pct/100))*c;
+  return `<svg width="104" height="104" viewBox="0 0 104 104" role="img" aria-label="${pct} percent complete">
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="#E4EAE1" stroke-width="11"/>
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="url(#donutGrad)" stroke-width="11" stroke-linecap="round"
+      stroke-dasharray="${dash} ${c-dash}" transform="rotate(-90 52 52)"/>
+    <defs><linearGradient id="donutGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2F7A6E"/><stop offset="100%" stop-color="#E2A83A"/>
+    </linearGradient></defs>
+    <text x="52" y="58" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="20" font-weight="700" fill="#16302D">${pct}%</text>
+  </svg>`;
+}
+
+function timeEstimateHTML(){
+  const maxH = Math.max(...roadmap.map(s=>s.hours||1));
+  return roadmap.map(s=>{
+    const done = isCompleted(s.id);
+    const w = Math.max(6, Math.round((s.hours/maxH)*100));
+    return `<div class="bar-row">
+      <div class="bl">${s.id}. ${escapeHtml(s.title.split(' ')[0])}</div>
+      <div class="bt"><div class="bf" style="width:${w}%;${done? '' : 'opacity:.4;'}"></div></div>
+      <div class="bh">${s.hours}h</div>
+    </div>`;
+  }).join('');
+}
+
+/* ---------- DASHBOARD ---------- */
+function renderDashboard(){
+  const completed = state.completedSteps.length;
+  const remaining = roadmap.length - completed;
+  const next = roadmap.find(s=>s.id===currentUnlockedStep());
+  const allDone = completed === roadmap.length;
+
+  return `
+    <div class="hero">
+      <div class="hero-flex">
+        <div class="hero-copy">
+          <div class="eyebrow">// python full-stack roadmap</div>
+          <h1>Build Your First Python Full-Stack Application</h1>
+          <p class="lead">Follow the roadmap step by step. Complete each stage, resolve your doubts, and gradually build a production-ready application — from planning to launch.</p>
+          <div class="cta-row">
+            <button class="btn btn-amber" onclick="navigate('step', ${next.id})">${completed===0?'Start Step 1':'Continue Step '+next.id} →</button>
+            ${allDone ? `<button class="btn btn-outline" onclick="navigate('certificate')">🎓 View certificate</button>` : ''}
+          </div>
+        </div>
+        <div class="hero-mock">${heroMockSVG()}</div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="num">${roadmap.length}</div><div class="lbl">Total steps</div></div>
+      <div class="stat-card"><div class="num" style="color:var(--teal)">${completed}</div><div class="lbl">Completed</div></div>
+      <div class="stat-card"><div class="num" style="color:var(--amber-dark)">${remaining}</div><div class="lbl">Remaining</div></div>
+      <div class="stat-card"><div class="num">${totalHoursDone()}<span style="font-size:14px;color:var(--text-dim);">/${totalHours()}h</span></div><div class="lbl">Time invested</div></div>
+    </div>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Your progress at a glance</h4>
+        <div class="donut-wrap">
+          ${donutSVG(progressPct())}
+          <div class="donut-legend">
+            <span class="big">${completed}/${roadmap.length}</span>
+            steps completed<br>≈ ${totalHoursDone()}h of ${totalHours()}h learned
+          </div>
+        </div>
+      </div>
+      <div class="insight-card">
+        <h4>Estimated time per step</h4>
+        ${timeEstimateHTML()}
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Your roadmap</h2><span class="step-tag">${completed}/${roadmap.length} done</span></div>
+    <div class="roadmap-grid">
+      ${roadmap.map(s=>{
+        const unlocked = isUnlocked(s.id);
+        const done = isCompleted(s.id);
+        const cur = !done && unlocked && s.id===currentUnlockedStep();
+        let cls='rm-card'; if(!unlocked) cls+=' locked'; if(done) cls+=' done'; if(cur) cls+=' current';
+        return `<div class="${cls}" onclick="${unlocked?`navigate('step', ${s.id})`:`lockedClick(${s.id})`}">
+          <div class="badge">${done?'✓':(unlocked?s.icon:'🔒')}</div>
+          <div>
+            <div class="t">Step ${s.id} — ${escapeHtml(s.title)}</div>
+            <div class="d">${escapeHtml(s.tagline)}</div>
+            <span class="hrs">⏱ ~${s.hours}h</span>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  `;
+}
+
+/* ---------- STEP PAGE ---------- */
+function renderStep(stepId){
+  const step = roadmap.find(s=>s.id===stepId);
+  if(!step) return renderDashboard();
+  if(!isUnlocked(stepId)){
+    return `<div class="empty-state"><div class="em">🔒</div><h3>This step is locked</h3>
+      <p>Complete Step ${stepId-1} first to unlock "${escapeHtml(step.title)}".</p>
+      <button class="btn btn-teal" style="margin-top:14px;" onclick="navigate('step', ${currentUnlockedStep()})">Go to your current step</button>
+    </div>`;
+  }
+  const done = isCompleted(stepId);
+  return `
+    <div class="step-header">
+      <div class="crumbs">
+        <span>STEP ${step.id} OF ${roadmap.length} ${done ? '· ✓ COMPLETED' : ''}</span>
+        <span class="step-tag">⏱ ~${step.hours}h</span>
+      </div>
+      <h1>${step.icon} ${escapeHtml(step.title)}</h1>
+      <div class="why"><strong>Why this matters —</strong> ${escapeHtml(step.why)}</div>
+    </div>
+
+    ${learningVisualHTML(step.id)}
+
+    ${step.sections.map(sectionHTML).join('')}
+
+    <div class="card">
+      <h3>✅ Before completing Step ${step.id}</h3>
+      <ul class="checklist">
+        ${step.checklist.map((c,i)=>`<li><input type="checkbox" id="chk-${step.id}-${i}"><label for="chk-${step.id}-${i}">${escapeHtml(c)}</label></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>🧠 Quick check</h3>
+      <div id="quiz-holder-${step.id}">${quizHTML(step)}</div>
+    </div>
+
+    <div class="confirm-block">
+      <h3>Before moving forward</h3>
+      <p>Have you completed this step? This won't unlock Step ${step.id+1 <= roadmap.length ? step.id+1 : ''} until you explicitly confirm.</p>
+      <div class="confirm-actions">
+        <button class="btn btn-amber" onclick="askCompleteStep(${step.id})">✅ Yes, I completed this step</button>
+        <button class="btn btn-outline" onclick="openDoubtModal(${step.id})">❓ I have a doubt</button>
+        ${done ? `<button class="btn btn-teal" ${step.id<roadmap.length?`onclick="navigate('step', ${step.id+1})"`:`onclick="navigate('certificate')"`}>${step.id<roadmap.length? 'Go to Step '+(step.id+1)+' →' : 'View certificate 🎓'}</button>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+
+function learningVisualHTML(stepId){
+  const visuals = {
+    1:{title:'From idea to a buildable plan',caption:'A beginner-friendly picture of how a vague idea becomes users, requirements, an MVP and finally screens you can build.',svg:`
+<svg viewBox="0 0 980 360" role="img" aria-label="Idea to requirements to MVP to application screens">
+  <rect x="10" y="10" width="960" height="340" rx="24" fill="#F7FAF8"/>
+  <g font-family="Arial, sans-serif">
+    <rect x="45" y="75" width="170" height="210" rx="18" fill="#fff" stroke="#D7E2DD"/><text x="130" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#173D36">💡 IDEA</text><text x="130" y="150" text-anchor="middle" font-size="13" fill="#59736D">Teams forget</text><text x="130" y="170" text-anchor="middle" font-size="13" fill="#59736D">who owns tasks</text><rect x="72" y="205" width="116" height="38" rx="9" fill="#FFF4D6"/><text x="130" y="229" text-anchor="middle" font-size="12" font-weight="700" fill="#8B6410">Problem statement</text>
+    <path d="M225 180 H285" stroke="#4E7B72" stroke-width="4" stroke-linecap="round"/><path d="M275 170 L289 180 L275 190" fill="none" stroke="#4E7B72" stroke-width="4"/>
+    <rect x="300" y="55" width="200" height="250" rx="18" fill="#fff" stroke="#D7E2DD"/><text x="400" y="92" text-anchor="middle" font-size="18" font-weight="700" fill="#173D36">📋 REQUIREMENTS</text><g fill="#EEF7F4"><rect x="330" y="120" width="140" height="34" rx="8"/><rect x="330" y="166" width="140" height="34" rx="8"/><rect x="330" y="212" width="140" height="34" rx="8"/></g><g font-size="12" fill="#365B53"><text x="400" y="141" text-anchor="middle">Register / Login</text><text x="400" y="187" text-anchor="middle">Create Projects</text><text x="400" y="233" text-anchor="middle">Manage Tasks</text></g><text x="400" y="275" text-anchor="middle" font-size="12" fill="#59736D">Must-have first</text>
+    <path d="M510 180 H570" stroke="#4E7B72" stroke-width="4" stroke-linecap="round"/><path d="M560 170 L574 180 L560 190" fill="none" stroke="#4E7B72" stroke-width="4"/>
+    <rect x="585" y="80" width="155" height="200" rx="18" fill="#fff" stroke="#D7E2DD"/><text x="662" y="116" text-anchor="middle" font-size="18" font-weight="700" fill="#173D36">🎯 MVP</text><circle cx="620" cy="155" r="7" fill="#1D8F78"/><text x="642" y="160" font-size="12" fill="#365B53">Login</text><circle cx="620" cy="192" r="7" fill="#1D8F78"/><text x="642" y="197" font-size="12" fill="#365B53">Projects</text><circle cx="620" cy="229" r="7" fill="#1D8F78"/><text x="642" y="234" font-size="12" fill="#365B53">Tasks</text>
+    <path d="M750 180 H800" stroke="#4E7B72" stroke-width="4" stroke-linecap="round"/><path d="M790 170 L804 180 L790 190" fill="none" stroke="#4E7B72" stroke-width="4"/>
+    <rect x="815" y="62" width="125" height="236" rx="16" fill="#fff" stroke="#D7E2DD"/><rect x="832" y="85" width="91" height="18" rx="5" fill="#173D36"/><rect x="832" y="118" width="91" height="48" rx="8" fill="#EAF4F1"/><rect x="832" y="179" width="42" height="68" rx="8" fill="#FFF4D6"/><rect x="881" y="179" width="42" height="68" rx="8" fill="#EDF3FF"/><text x="877" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#173D36">APP SCREEN</text>
+  </g>
+</svg>`},
+    2:{title:'How a full-stack application actually connects',caption:'The frontend never “talks to the database directly.” Requests move through the API and backend logic first.',svg:`
+<svg viewBox="0 0 980 390" role="img" aria-label="React frontend to FastAPI backend to PostgreSQL database architecture">
+<rect x="10" y="10" width="960" height="370" rx="24" fill="#F7FAF8"/><g font-family="Arial, sans-serif">
+<rect x="45" y="65" width="210" height="255" rx="18" fill="#fff" stroke="#D7E2DD"/><rect x="65" y="88" width="170" height="118" rx="12" fill="#ECF6FF"/><rect x="81" y="107" width="138" height="17" rx="5" fill="#BBD9F4"/><rect x="81" y="136" width="65" height="52" rx="7" fill="#fff"/><rect x="154" y="136" width="65" height="52" rx="7" fill="#fff"/><text x="150" y="240" text-anchor="middle" font-size="22" font-weight="700" fill="#173D36">⚛ React</text><text x="150" y="269" text-anchor="middle" font-size="13" fill="#59736D">What the user sees</text>
+<path d="M270 188 H365" stroke="#4E7B72" stroke-width="4"/><path d="M355 178 L369 188 L355 198" fill="none" stroke="#4E7B72" stroke-width="4"/><text x="318" y="172" text-anchor="middle" font-size="12" fill="#59736D">HTTP / JSON</text>
+<rect x="385" y="65" width="210" height="255" rx="18" fill="#fff" stroke="#D7E2DD"/><rect x="420" y="95" width="140" height="35" rx="8" fill="#EAF8F4"/><text x="490" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#1D725F">POST /api/tasks</text><rect x="420" y="150" width="140" height="62" rx="9" fill="#F8F4EA"/><text x="490" y="177" text-anchor="middle" font-size="12" fill="#6F5B2C">Validation</text><text x="490" y="196" text-anchor="middle" font-size="12" fill="#6F5B2C">Business logic</text><text x="490" y="250" text-anchor="middle" font-size="22" font-weight="700" fill="#173D36">🐍 FastAPI</text><text x="490" y="278" text-anchor="middle" font-size="13" fill="#59736D">Backend / API</text>
+<path d="M610 188 H705" stroke="#4E7B72" stroke-width="4"/><path d="M695 178 L709 188 L695 198" fill="none" stroke="#4E7B72" stroke-width="4"/><text x="658" y="172" text-anchor="middle" font-size="12" fill="#59736D">SQLAlchemy</text>
+<rect x="725" y="65" width="210" height="255" rx="18" fill="#fff" stroke="#D7E2DD"/><ellipse cx="830" cy="120" rx="62" ry="23" fill="#E7EEF8" stroke="#AFC0D9"/><rect x="768" y="120" width="124" height="92" fill="#E7EEF8" stroke="#AFC0D9"/><ellipse cx="830" cy="212" rx="62" ry="23" fill="#DDE8F5" stroke="#AFC0D9"/><path d="M768 150 Q830 178 892 150" fill="none" stroke="#AFC0D9"/><path d="M768 180 Q830 208 892 180" fill="none" stroke="#AFC0D9"/><text x="830" y="255" text-anchor="middle" font-size="22" font-weight="700" fill="#173D36">PostgreSQL</text><text x="830" y="282" text-anchor="middle" font-size="13" fill="#59736D">Stored application data</text>
+<text x="490" y="350" text-anchor="middle" font-size="13" font-weight="700" fill="#365B53">USER → FRONTEND → API → BACKEND → DATABASE → RESPONSE</text></g></svg>`},
+    3:{title:'A professional project workspace',caption:'Think of your repository as one organized workspace: frontend, backend and project documentation live in predictable places.',svg:`
+<svg viewBox="0 0 980 390" role="img" aria-label="VS Code project folders connected to Git and GitHub"><rect x="10" y="10" width="960" height="370" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><rect x="50" y="48" width="560" height="292" rx="16" fill="#1F262A"/><rect x="50" y="48" width="560" height="36" rx="16" fill="#30383D"/><circle cx="74" cy="66" r="6" fill="#F28B82"/><circle cx="94" cy="66" r="6" fill="#FDD663"/><circle cx="114" cy="66" r="6" fill="#81C995"/><rect x="66" y="100" width="190" height="220" rx="8" fill="#252D31"/><g font-size="13" fill="#D5DEE2"><text x="85" y="126">▾ task-management-app</text><text x="103" y="151">▾ backend</text><text x="122" y="176">📄 main.py</text><text x="122" y="198">📁 routes</text><text x="122" y="220">📁 models</text><text x="103" y="248">▾ frontend</text><text x="122" y="273">📁 src</text><text x="122" y="295">📁 components</text></g><rect x="276" y="102" width="316" height="218" rx="8" fill="#182024"/><text x="294" y="130" font-size="13" fill="#8AB4F8">main.py</text><text x="294" y="166" font-size="13" fill="#C7D2D8">from fastapi import FastAPI</text><text x="294" y="192" font-size="13" fill="#C7D2D8">app = FastAPI()</text><text x="294" y="225" font-size="13" fill="#9AA0A6"># clean structure = easier growth</text>
+<path d="M625 190 H695" stroke="#4E7B72" stroke-width="4"/><path d="M685 180 L699 190 L685 200" fill="none" stroke="#4E7B72" stroke-width="4"/><circle cx="760" cy="150" r="46" fill="#fff" stroke="#D7E2DD"/><text x="760" y="158" text-anchor="middle" font-size="34">⑂</text><text x="760" y="218" text-anchor="middle" font-size="18" font-weight="700" fill="#173D36">Git</text><path d="M805 190 H850" stroke="#4E7B72" stroke-width="4"/><path d="M840 180 L854 190 L840 200" fill="none" stroke="#4E7B72" stroke-width="4"/><rect x="855" y="110" width="90" height="160" rx="16" fill="#fff" stroke="#D7E2DD"/><text x="900" y="154" text-anchor="middle" font-size="30">◉</text><text x="900" y="188" text-anchor="middle" font-size="15" font-weight="700" fill="#173D36">GitHub</text><rect x="872" y="211" width="56" height="28" rx="7" fill="#EDF3FF"/><text x="900" y="230" text-anchor="middle" font-size="11" fill="#365B53">Repository</text></g></svg>`},
+    4:{title:'What happens inside the backend',caption:'A backend request moves through several layers before data is written or returned. This separation keeps code easier to test and maintain.',svg:`
+<svg viewBox="0 0 980 340" role="img" aria-label="Backend request route validation service ORM database flow"><rect x="10" y="10" width="960" height="320" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><g fill="#fff" stroke="#D7E2DD"><rect x="42" y="92" width="130" height="150" rx="16"/><rect x="205" y="92" width="130" height="150" rx="16"/><rect x="368" y="92" width="130" height="150" rx="16"/><rect x="531" y="92" width="130" height="150" rx="16"/><rect x="694" y="92" width="130" height="150" rx="16"/><rect x="857" y="92" width="80" height="150" rx="16"/></g><g font-size="14" font-weight="700" fill="#173D36" text-anchor="middle"><text x="107" y="140">API Route</text><text x="270" y="140">Schema</text><text x="433" y="140">Service</text><text x="596" y="140">SQLAlchemy</text><text x="759" y="140">Database</text><text x="897" y="140">JSON</text></g><g font-size="12" fill="#59736D" text-anchor="middle"><text x="107" y="175">/tasks</text><text x="270" y="175">validate</text><text x="433" y="175">business logic</text><text x="596" y="175">ORM model</text><text x="759" y="175">save/query</text><text x="897" y="175">response</text></g><g stroke="#4E7B72" stroke-width="4"><path d="M174 168 H195"/><path d="M337 168 H358"/><path d="M500 168 H521"/><path d="M663 168 H684"/><path d="M826 168 H847"/></g><text x="490" y="55" text-anchor="middle" font-size="21" font-weight="700" fill="#173D36">POST /api/tasks</text><text x="490" y="286" text-anchor="middle" font-size="13" fill="#365B53">Each layer has one clear job — receive, validate, process, store, respond.</text></g></svg>`},
+    5:{title:'A React screen is made from smaller components',caption:'Instead of building one giant page, React lets you compose reusable pieces such as Sidebar, Header, ProjectCard and TaskList.',svg:`
+<svg viewBox="0 0 980 400" role="img" aria-label="React task dashboard broken into reusable components"><rect x="10" y="10" width="960" height="380" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><rect x="45" y="45" width="620" height="310" rx="18" fill="#fff" stroke="#D7E2DD"/><rect x="45" y="45" width="145" height="310" rx="18" fill="#173D36"/><text x="117" y="82" text-anchor="middle" fill="#fff" font-size="17" font-weight="700">TaskFlow</text><g fill="#DDEBE7" font-size="12"><text x="73" y="130">▣ Dashboard</text><text x="73" y="165">□ Projects</text><text x="73" y="200">✓ Tasks</text></g><rect x="210" y="65" width="430" height="54" rx="10" fill="#F5F8F7"/><text x="232" y="98" font-size="17" font-weight="700" fill="#173D36">Good morning, learner 👋</text><rect x="210" y="140" width="130" height="75" rx="12" fill="#FFF4D6"/><rect x="355" y="140" width="130" height="75" rx="12" fill="#EAF8F4"/><rect x="500" y="140" width="140" height="75" rx="12" fill="#EDF3FF"/><text x="275" y="172" text-anchor="middle" font-size="13" fill="#73551A">Projects</text><text x="275" y="198" text-anchor="middle" font-size="24" font-weight="700" fill="#173D36">4</text><text x="420" y="172" text-anchor="middle" font-size="13" fill="#356B5E">Open tasks</text><text x="420" y="198" text-anchor="middle" font-size="24" font-weight="700" fill="#173D36">12</text><text x="570" y="172" text-anchor="middle" font-size="13" fill="#496083">Completed</text><text x="570" y="198" text-anchor="middle" font-size="24" font-weight="700" fill="#173D36">27</text><rect x="210" y="235" width="430" height="95" rx="12" fill="#FBFCFC" stroke="#E3EAE7"/><text x="230" y="263" font-size="13" font-weight="700" fill="#173D36">Recent tasks</text><line x1="230" y1="280" x2="620" y2="280" stroke="#E3EAE7"/><text x="230" y="306" font-size="12" fill="#59736D">Design dashboard</text><rect x="548" y="291" width="70" height="22" rx="11" fill="#EAF8F4"/><text x="583" y="306" text-anchor="middle" font-size="10" fill="#1D725F">In progress</text>
+<path d="M680 195 H720" stroke="#4E7B72" stroke-width="4"/><g fill="#fff" stroke="#D7E2DD"><rect x="735" y="65" width="195" height="54" rx="11"/><rect x="735" y="132" width="195" height="54" rx="11"/><rect x="735" y="199" width="195" height="54" rx="11"/><rect x="735" y="266" width="195" height="54" rx="11"/></g><g font-size="13" font-weight="700" fill="#173D36"><text x="755" y="98">&lt;Sidebar /&gt;</text><text x="755" y="165">&lt;Header /&gt;</text><text x="755" y="232">&lt;StatCard /&gt;</text><text x="755" y="299">&lt;TaskList /&gt;</text></g></g></svg>`},
+    6:{title:'Tables become relationships, then application data',caption:'The database stores structured records. Foreign keys connect tables so one user can own many projects and each project can contain many tasks.',svg:`
+<svg viewBox="0 0 980 390" role="img" aria-label="User project task relational database diagram"><rect x="10" y="10" width="960" height="370" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><g fill="#fff" stroke="#D7E2DD"><rect x="55" y="75" width="230" height="235" rx="16"/><rect x="375" y="75" width="230" height="235" rx="16"/><rect x="695" y="75" width="230" height="235" rx="16"/></g><rect x="55" y="75" width="230" height="48" rx="16" fill="#EAF8F4"/><rect x="375" y="75" width="230" height="48" rx="16" fill="#FFF4D6"/><rect x="695" y="75" width="230" height="48" rx="16" fill="#EDF3FF"/><g font-size="18" font-weight="700" fill="#173D36" text-anchor="middle"><text x="170" y="106">USER</text><text x="490" y="106">PROJECT</text><text x="810" y="106">TASK</text></g><g font-size="13" fill="#48665F"><text x="80" y="155">🔑 id</text><text x="80" y="185">name</text><text x="80" y="215">email</text><text x="400" y="155">🔑 id</text><text x="400" y="185">name</text><text x="400" y="215">🔗 owner_id</text><text x="720" y="155">🔑 id</text><text x="720" y="185">title</text><text x="720" y="215">status</text><text x="720" y="245">🔗 project_id</text></g><path d="M285 190 H375" stroke="#4E7B72" stroke-width="4"/><text x="330" y="176" text-anchor="middle" font-size="12" fill="#59736D">1 → many</text><path d="M605 190 H695" stroke="#4E7B72" stroke-width="4"/><text x="650" y="176" text-anchor="middle" font-size="12" fill="#59736D">1 → many</text><text x="490" y="345" text-anchor="middle" font-size="13" font-weight="700" fill="#365B53">USER.id = PROJECT.owner_id   •   PROJECT.id = TASK.project_id</text></g></svg>`},
+    7:{title:'Integration means testing the whole journey',caption:'The most useful test is often the user journey: click in the frontend, call the API, touch the database and verify the result comes back correctly.',svg:`
+<svg viewBox="0 0 980 360" role="img" aria-label="Frontend backend integration and test journey"><rect x="10" y="10" width="960" height="340" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><text x="490" y="55" text-anchor="middle" font-size="21" font-weight="700" fill="#173D36">Example test: “Create a task”</text><g fill="#fff" stroke="#D7E2DD"><rect x="45" y="110" width="150" height="120" rx="15"/><rect x="235" y="110" width="150" height="120" rx="15"/><rect x="425" y="110" width="150" height="120" rx="15"/><rect x="615" y="110" width="150" height="120" rx="15"/><rect x="805" y="110" width="130" height="120" rx="15"/></g><g font-size="14" font-weight="700" fill="#173D36" text-anchor="middle"><text x="120" y="152">React Form</text><text x="310" y="152">Axios</text><text x="500" y="152">FastAPI</text><text x="690" y="152">Database</text><text x="870" y="152">UI Result</text></g><g font-size="12" fill="#59736D" text-anchor="middle"><text x="120" y="186">Click Save</text><text x="310" y="186">POST /tasks</text><text x="500" y="186">validate + save</text><text x="690" y="186">new row</text><text x="870" y="186">Task appears ✅</text></g><g stroke="#4E7B72" stroke-width="4"><path d="M197 170 H225"/><path d="M387 170 H415"/><path d="M577 170 H605"/><path d="M767 170 H795"/></g><rect x="280" y="270" width="420" height="48" rx="12" fill="#EAF8F4"/><text x="490" y="300" text-anchor="middle" font-size="13" font-weight="700" fill="#1D725F">If any link fails, the end-to-end test exposes where the journey broke.</text></g></svg>`},
+    8:{title:'How your app travels from laptop to the internet',caption:'Deployment is a pipeline: code is pushed, built, configured with production secrets, deployed to hosting, and connected to a production database.',svg:`
+<svg viewBox="0 0 980 380" role="img" aria-label="GitHub CI CD cloud deployment frontend backend database"><rect x="10" y="10" width="960" height="360" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><g fill="#fff" stroke="#D7E2DD"><rect x="45" y="100" width="135" height="140" rx="16"/><rect x="215" y="100" width="135" height="140" rx="16"/><rect x="385" y="100" width="135" height="140" rx="16"/><rect x="555" y="70" width="180" height="200" rx="16"/><rect x="775" y="70" width="160" height="200" rx="16"/></g><g font-size="15" font-weight="700" fill="#173D36" text-anchor="middle"><text x="112" y="150">💻 Code</text><text x="282" y="150">◉ GitHub</text><text x="452" y="150">⚙ CI/CD</text><text x="645" y="120">☁ Cloud App</text><text x="855" y="120">🗄 Database</text></g><g font-size="12" fill="#59736D" text-anchor="middle"><text x="112" y="185">git push</text><text x="282" y="185">repository</text><text x="452" y="185">test + build</text><text x="645" y="155">React hosting</text><text x="645" y="180">FastAPI service</text><text x="645" y="205">HTTPS + domain</text><text x="855" y="155">Managed</text><text x="855" y="180">PostgreSQL</text></g><g stroke="#4E7B72" stroke-width="4"><path d="M182 170 H205"/><path d="M352 170 H375"/><path d="M522 170 H545"/><path d="M737 170 H765"/></g><rect x="245" y="295" width="490" height="42" rx="11" fill="#FFF4D6"/><text x="490" y="321" text-anchor="middle" font-size="13" font-weight="700" fill="#73551A">Production secrets live in environment variables — never inside your Git repository.</text></g></svg>`},
+    9:{title:'Production is a continuous feedback loop',caption:'After launch, healthy software is monitored, fixed, updated and backed up continuously rather than being left untouched.',svg:`
+<svg viewBox="0 0 980 390" role="img" aria-label="Production monitoring feedback bug fix deployment maintenance cycle"><rect x="10" y="10" width="960" height="370" rx="24" fill="#F7FAF8"/><g font-family="Arial,sans-serif"><circle cx="490" cy="195" r="72" fill="#fff" stroke="#D7E2DD"/><text x="490" y="185" text-anchor="middle" font-size="26">🚀</text><text x="490" y="215" text-anchor="middle" font-size="18" font-weight="700" fill="#173D36">LIVE APP</text><g fill="#fff" stroke="#D7E2DD"><rect x="410" y="35" width="160" height="62" rx="14"/><rect x="705" y="95" width="170" height="62" rx="14"/><rect x="705" y="250" width="170" height="62" rx="14"/><rect x="105" y="250" width="170" height="62" rx="14"/><rect x="105" y="95" width="170" height="62" rx="14"/></g><g font-size="14" font-weight="700" fill="#173D36" text-anchor="middle"><text x="490" y="73">📈 Monitor</text><text x="790" y="133">⚠ Detect issue</text><text x="790" y="288">🛠 Fix + Test</text><text x="190" y="288">📦 Deploy update</text><text x="190" y="133">💾 Backup</text></g><path d="M570 85 Q690 70 738 106" fill="none" stroke="#4E7B72" stroke-width="4"/><path d="M850 160 Q900 205 850 245" fill="none" stroke="#4E7B72" stroke-width="4"/><path d="M705 300 Q560 355 275 300" fill="none" stroke="#4E7B72" stroke-width="4"/><path d="M130 250 Q78 205 130 160" fill="none" stroke="#4E7B72" stroke-width="4"/><path d="M240 105 Q340 60 410 68" fill="none" stroke="#4E7B72" stroke-width="4"/><text x="490" y="355" text-anchor="middle" font-size="13" font-weight="700" fill="#365B53">Monitor → Detect → Fix → Test → Deploy → Monitor again</text></g></svg>`}
+  };
+  const v = visuals[stepId];
+  if(!v) return '';
+  return `<section class="visual-learning" aria-label="Visual explanation for this step">
+    <div class="visual-kicker">Visual explanation</div>
+    <div class="visual-card">
+      <div class="visual-head"><div><h3>${v.title}</h3><p>${v.caption}</p></div><span class="visual-pill">👁 Learn visually</span></div>
+      <div class="visual-stage">${v.svg}</div>
+      <div class="visual-caption"><strong>What to notice:</strong> Follow the arrows from left to right (or around the loop). Each box represents one responsibility in the real application.</div>
+    </div>
+  </section>`;
+}
+
+function sectionHTML(sec){
+  let html = `<div class="card"><h3>${escapeHtml(sec.h)}</h3>`;
+  if(sec.body) html += sec.body.map(p=>`<p>${escapeHtml(p)}</p>`).join('');
+  if(sec.list) html += `<ul>${sec.list.map(li=>`<li>${escapeHtml(li)}</li>`).join('')}</ul>`;
+  if(sec.diagram) html += diagramHTML(sec.diagram);
+  if(sec.code) html += codeBlockHTML(sec.code.lang, sec.code.text);
+  if(sec.body2) html += sec.body2.map(p=>`<p>${escapeHtml(p)}</p>`).join('');
+  if(sec.code2) html += codeBlockHTML(sec.code2.lang, sec.code2.text);
+  if(sec.body3) html += sec.body3.map(p=>`<p>${escapeHtml(p)}</p>`).join('');
+  if(sec.code3) html += codeBlockHTML(sec.code3.lang, sec.code3.text);
+  if(sec.subitems){
+    html += sec.subitems.map(si=>`
+      <details class="sub-item">
+        <summary>${escapeHtml(si.t)}<span class="chev">▶</span></summary>
+        <div class="sub-body">
+          <p>${escapeHtml(si.body)}</p>
+          ${si.code ? codeBlockHTML(si.code.lang, si.code.text) : ''}
+        </div>
+      </details>
+    `).join('');
+  }
+  html += `</div>`;
+  return html;
+}
+
+let codeBlockCounter = 0;
+function codeBlockHTML(lang, text){
+  codeBlockCounter++;
+  const id = 'code-'+codeBlockCounter;
+  const cls = (lang||'').toLowerCase()==='python' ? 'language-python' :
+              (lang||'').toLowerCase()==='javascript' ? 'language-javascript' :
+              (lang||'').toLowerCase()==='sql' ? 'language-sql' : 'language-bash';
+  return `<div class="code-block">
+    <div class="code-head">
+      <span class="lang">${escapeHtml(lang||'code')}</span>
+      <button class="copy-btn" onclick="copyCode('${id}', this)">Copy</button>
+    </div>
+    <pre><code id="${id}" class="${cls}">${escapeHtml(text)}</code></pre>
+  </div>`;
+}
+function diagramHTML(text){
+  return `<div class="diagram">${escapeHtml(text)}</div>`;
+}
+function copyCode(id, btn){
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig = btn.textContent;
+    btn.textContent = 'Copied ✓'; btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = orig; btn.classList.remove('copied'); }, 1600);
+  }).catch(()=>toast('Could not copy — select and copy manually'));
+}
+
+function quizHTML(step){
+  const q = step.quiz;
+  return `<div class="quiz-box" id="quiz-${step.id}">
+    <div class="q">${escapeHtml(q.q)}</div>
+    ${q.options.map((opt,i)=>`<button class="quiz-opt" onclick="answerQuiz(${step.id}, ${i})">${escapeHtml(opt)}</button>`).join('')}
+    <div class="quiz-fb" id="quizfb-${step.id}" style="display:none;"></div>
+  </div>`;
+}
+
+/* ---------- DOUBTS ---------- */
+function renderDoubts(){
+  return `
+    <div class="step-header">
+      <div class="crumbs">SUPPORT</div>
+      <h1>My Doubts</h1>
+      <p style="color:var(--text-dim);font-size:14px;margin-top:6px;">Questions you've flagged while learning. Marked "Open" until you resolve them yourself once you've found the answer.</p>
+    </div>
+    <button class="btn btn-amber" style="margin-bottom:18px;" onclick="openDoubtModal(null)">❓ Ask a new question</button>
+    ${state.doubts.length===0 ? `
+      <div class="empty-state"><div class="em">💭</div><h3>No doubts yet</h3><p>Anything you get stuck on while learning will show up here.</p></div>
+    ` : state.doubts.map(d=>`
+      <div class="doubt-card">
+        <div class="dh">
+          <div>
+            <div class="q">❓ ${escapeHtml(d.text)}</div>
+            <div class="meta">Step: ${escapeHtml(d.step)} · ${escapeHtml(d.date)}</div>
+          </div>
+          <span class="status-pill ${d.status}">${d.status==='open'?'Open':'Resolved'}</span>
+        </div>
+        <div class="actions">
+          ${d.status==='open' ? `<button class="mini-btn" onclick="resolveDoubt(${d.id})">Mark Resolved</button>` : ''}
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+/* ---------- SETTINGS ---------- */
+function renderSettings(){
+  return `
+    <div class="step-header">
+      <div class="crumbs">SETTINGS</div>
+      <h1>Progress & Settings</h1>
+    </div>
+    <div class="card">
+      <div class="settings-row">
+        <div><div class="st">Signed in as</div><div class="sd">${escapeHtml(state.profile.name)}${state.profile.email? ' · '+escapeHtml(state.profile.email):''}</div></div>
+        <button class="btn btn-ghost" onclick="signOut()">Sign out</button>
+      </div>
+      <div class="settings-row">
+        <div><div class="st">Overall progress</div><div class="sd">${state.completedSteps.length} / ${roadmap.length} steps completed (${progressPct()}%)</div></div>
+        <div class="step-tag">${progressPct()}%</div>
+      </div>
+      <div class="settings-row">
+        <div><div class="st">Doubts recorded</div><div class="sd">${state.doubts.length} total, ${state.doubts.filter(d=>d.status==='open').length} still open</div></div>
+        <button class="btn btn-ghost" onclick="navigate('doubts')">View</button>
+      </div>
+      <div class="settings-row">
+        <div><div class="st">Reset my progress</div><div class="sd">Locks all steps again and clears completed steps. Doubts and your profile are kept.</div></div>
+        <button class="btn btn-danger" onclick="askReset()">Reset Progress</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>How this app remembers your progress</h3>
+      <p>Everything — your profile, completed steps, and doubts — is saved in your browser's <code>localStorage</code>. Nothing is sent to a server, so it stays on this device and this browser only. There's no password: signing out just clears the active profile locally.</p>
+    </div>
+  `;
+}
+
+/* ---------- CERTIFICATE ---------- */
+function certId(){
+  const base = (state.profile && state.profile.name || 'guest') + '|' + state.completedSteps.slice().sort().join(',');
+  let hash = 0;
+  for(let i=0;i<base.length;i++){ hash = (Math.imul(31, hash) + base.charCodeAt(i)) | 0; }
+  return 'PYFS-' + Math.abs(hash).toString(16).toUpperCase().padStart(8,'0').slice(0,8);
+}
+function certSealSVG(){
+  return `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Completion seal">
+    <circle cx="32" cy="32" r="30" fill="#FFF4D6" stroke="#E2A83A" stroke-width="2"/>
+    <circle cx="32" cy="32" r="22" fill="none" stroke="#B9822A" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <text x="32" y="40" text-anchor="middle" font-size="26">🎓</text>
+  </svg>`;
+}
+function renderCertificate(){
+  const allDone = state.completedSteps.length === roadmap.length;
+  if(!allDone){
+    const done = state.completedSteps.length;
+    return `<div class="empty-state"><div class="em">🎓</div><h3>Certificate locked</h3>
+      <p>Complete all ${roadmap.length} steps to unlock your certificate. You're at ${done}/${roadmap.length}.</p>
+      <button class="btn btn-teal" style="margin-top:14px;" onclick="navigate('step', ${currentUnlockedStep()})">Continue learning</button>
+    </div>`;
+  }
+  const name = state.learnerName || (state.profile && state.profile.name) || 'Your Name';
+  return `
+    <div class="celebrate no-print">
+      <div class="emoji">🎉</div>
+      <h2>Congratulations, ${escapeHtml((state.profile&&state.profile.name)||'learner')}!</h2>
+      <p>You completed the Python Full-Stack Application Roadmap — ${roadmap.length}/${roadmap.length} steps, 100%.</p>
+    </div>
+    <div class="cert-wrap" id="certificate">
+      <div class="cert-seal">${certSealSVG()}</div>
+      <div class="cert-eyebrow">CERTIFICATE OF COMPLETION</div>
+      <div class="cert-title">Python Full-Stack Application Roadmap</div>
+      <input class="cert-name" id="certNameInput" value="${escapeHtml(name)}" onchange="setLearnerName(this.value)" style="text-align:center;border:none;border-bottom:2px solid var(--line);background:transparent;font-family:var(--font-display);">
+      <p class="cert-body">has successfully completed all ${roadmap.length} stages of the roadmap — from Planning &amp; Requirements through Launch &amp; Maintenance — and built a working full-stack application using Python.</p>
+      <div class="cert-date">Issued ${new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'})}</div>
+      <div class="cert-id">Certificate ID: ${certId()}</div>
+    </div>
+    <div class="cta-row no-print" style="margin-top:22px;">
+      <button class="btn btn-ghost" onclick="navigate('dashboard')">Review Roadmap</button>
+      <button class="btn btn-outline" style="border-color:var(--line);color:var(--ink-2);" onclick="askReset()">Start Again</button>
+      <button class="btn btn-amber" onclick="window.print()">⬇ Download / Print Certificate</button>
+    </div>
+  `;
+}
+function setLearnerName(val){ state.learnerName = val; saveState(); }
+
+/* =========================================================
+   INIT
+========================================================= */
+hljs.registerAliases(['py'], {languageName:'python'});
+route.name = 'dashboard';
+render();
+</script>
+</body>
+</html>
