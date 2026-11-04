@@ -7,7 +7,7 @@ def read_students():
     students = []
     if not DATA_FILE.exists():
         return students
-    with DATA_FILE.open("r", encoding="utf-8") as f:
+    with DATA_FILE.open("r", encoding="utf-8") as f: 
         for line in f:
             line = line.strip()
             if not line:
