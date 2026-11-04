@@ -6,7 +6,7 @@ Plan database structure
 2. Architecture & Design
 Backend: Django, Flask, or FastAPI
 Frontend: React, Vue, or vanilla JavaScript
-Database: PostgreSQL, MySQL, or MongoDB
+Database: PostgreSQL, MySQL, or MongoDB 
 Design API endpoints (REST or GraphQL)
 Create database schema
 3. Setup Project Repository
