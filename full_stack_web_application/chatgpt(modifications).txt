@@ -1,5 +1,5 @@
 ✅ Yes — it already contains an overall Full-Stack Web Application roadmap
-
+ 
 The page is not just a collection of random Python topics. It is structured as a complete end-to-end Python full-stack application development roadmap, from the initial idea all the way to production maintenance.
 
 It currently has 9 major steps:
